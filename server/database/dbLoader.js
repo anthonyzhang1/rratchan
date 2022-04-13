@@ -1,0 +1,1 @@
+/* This file will creates the tables in MySQL. */
