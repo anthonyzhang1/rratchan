@@ -29,24 +29,28 @@ export default function FrontPage() {
     function displayBoards() {
         return boards.map(board => {
             return (
-                <BoardTableEntry key={board.short_name} board={board}/>
+                <BoardTableEntry key={board.short_name} board={board} />
             );
         });
     }
 
     return (
         <div>
-            <h1>Welcome to rratchan!</h1>
-            <h3>Select a Board:</h3>
-            <Table bordered hover size='sm'>
-                <thead>
-                    <tr>
-                        <th className='short-name-table-column'>Short Name</th>
-                        <th>Board</th>
-                    </tr>
-                </thead>
-                <tbody>{displayBoards()}</tbody>
-            </Table>
+            <h1>&#128000; rratchan</h1>
+            <h4>[Create a New Board]</h4>
+            <hr />
+            <h3>Boards</h3>
+            <div className='d-flex justify-content-center'>
+                <Table bordered hover size='sm'>
+                    <thead>
+                        <tr>
+                            <th className='short-name-table-column'>Short Name</th>
+                            <th>Board</th>
+                        </tr>
+                    </thead>
+                    <tbody>{displayBoards()}</tbody>
+                </Table>
+            </div>
         </div>
     );
 }

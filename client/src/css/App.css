@@ -1,1 +1,15 @@
-* {margin: 0.1%;}
+* {
+    background-color: #eef2ff;
+    margin: 0;
+}
+
+/* =========== Navbar START ============ */
+.navbar {
+    max-height: 2.5em;
+    border-bottom: solid grey 1px;
+    margin-bottom: 0.75%;
+}
+
+.nav-link {color: green;}
+.nav-link:hover {color: green;}
+/* ============ Navbar END ============= */

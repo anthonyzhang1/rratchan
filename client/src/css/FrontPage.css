@@ -1,2 +1,13 @@
+* {text-align: center;}
+
+h1 {color: #af0a0f;}
+
+hr {
+    width: 50%;
+    margin: 1% auto 0.5% auto;
+}
+
 .table {width: 40%;}
+.table > thead, .table > tbody {border: black solid 1px;}
+
 .short-name-table-column {width: 20%;}
