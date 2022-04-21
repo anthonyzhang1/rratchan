@@ -7,10 +7,10 @@ const port = process.env.EXPRESS_PORT;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Express server test output.');
-});
+app.use('/api/boards', require('./routes/boards'));
 
 app.listen(port, () => {
   console.log(`Express server listening on port ${port}.`);
 });
+
+module.exports = app;

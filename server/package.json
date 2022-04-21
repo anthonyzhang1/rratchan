@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"npm start\" \"cd ../client && npm start\""
+    "both": "concurrently \"npm start\" \"cd ../client && npm start\""
   },
   "author": "",
   "license": "ISC",
