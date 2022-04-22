@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
-import '../css/FrontPage.css'
 
 /** Prepares the data from the backend and creates a table row with it.
-    The table row can then be inserted into a table. */
+  * The table row can then be inserted into a table. */
 const BoardTableEntry = (props) => (
     <tr>
         <td>/{props.board.short_name}/</td>
@@ -17,8 +15,10 @@ export default function FrontPage() {
 
     /** Get the boards from the database. */
     async function getBoards() {
-        const boards = await fetch('/api/boards/getBoards');
-        setBoards(await boards.json());
+        fetch('/api/boards/getBoards')
+        .then(res => res.json())
+        .then(data => { setBoards(data); })
+        .catch(console.log());
     }
 
     useEffect(() => {
@@ -35,9 +35,9 @@ export default function FrontPage() {
     }
 
     return (
-        <div>
-            <h1>&#128000; rratchan</h1>
-            <h4>[Create a New Board]</h4>
+        <div className='front-page'>
+            <h1 className='page-title'>&#128000; rratchan</h1>
+            <h4>[Create a New Board] (mods only)</h4>
             <hr />
             <h3>Boards</h3>
             <div className='d-flex justify-content-center'>

@@ -3,7 +3,7 @@ import {Navbar, Nav, Container} from 'react-bootstrap';
 
 export default function Navigation() {
     return (
-        <Navbar>
+        <Navbar className='navbar-component'>
             <Container>
                 <Navbar.Brand href='/'>rratchan</Navbar.Brand>
                 <Navbar.Toggle />

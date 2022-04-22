@@ -3,17 +3,18 @@
 -- You can just copy and paste this entire file into MySQL Workbench to
 -- create the database and tables.
 --
--- Last updated 04/15/22, 01:20 PST.
+-- Last updated 04/21/22, 16:26 PST.
 
 CREATE DATABASE rratchan;
 USE rratchan;
 
 CREATE TABLE users (
-    id       int NOT NULL UNIQUE AUTO_INCREMENT,
-    username varchar(64) NOT NULL UNIQUE,
-    email    varchar(100) NOT NULL,
-    password varchar(64) NOT NULL,
-    is_mod   boolean NOT NULL DEFAULT false,
+    id         int NOT NULL UNIQUE AUTO_INCREMENT,
+    username   varchar(64) NOT NULL UNIQUE,
+    email      varchar(100) NOT NULL,
+    password   varchar(64) NOT NULL,
+    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_mod     boolean NOT NULL DEFAULT false,
     PRIMARY KEY (id)
 );
 

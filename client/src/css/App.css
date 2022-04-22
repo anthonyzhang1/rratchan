@@ -3,13 +3,15 @@
     margin: 0;
 }
 
+.page-title {color: #af0a0f;}
+
 /* =========== Navbar START ============ */
-.navbar {
-    max-height: 2.5em;
+.navbar-component {
+    max-height: 2.6em;
     border-bottom: solid grey 1px;
     margin-bottom: 0.75%;
 }
 
-.nav-link {color: green;}
-.nav-link:hover {color: green;}
+.navbar-component .nav-link {color: green;}
+.navbar-component .nav-link:hover {color: green;}
 /* ============ Navbar END ============= */

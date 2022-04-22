@@ -1,8 +1,8 @@
 const db = require('../database/dbPool');
 const BoardsModel = {};
 
+/** Get boards sorted in alphabetical order by short name. */
 BoardsModel.getBoards = () => {
-    // Get boards sorted in alphabetical order by short name
     let query = `SELECT short_name, name
                  FROM boards
                  ORDER BY short_name ASC;`;

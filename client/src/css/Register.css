@@ -1,0 +1,10 @@
+.registration-page * {text-align: center;}
+
+.registration-page .page-title {margin-bottom: 1%;}
+
+.registration-page .form-control {
+    margin-left: 35%;
+    width: 30%;
+}
+
+.registration-page .btn {margin-top: 1%;}
