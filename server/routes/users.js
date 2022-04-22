@@ -18,12 +18,12 @@ router.post('/register', registrationValidator, (req, res) => {
             `Registration Failed: The username '${username}' has already been taken.`);
         else return UsersModel.createAccount(username, email, password); // create the account
     })
-    .then(createdUserID => {
-        if (createdUserID < 0) throw new Error('Error with createAccount().');
+    .then(createdUserId => {
+        if (createdUserId < 0) throw new Error('Error with createAccount().');
         else { // successfully created the account
             result.status = 'success';
             result.message = `Successfully registered the account '${username}'!`;
-            console.log('DEBUG: userID: ' + createdUserID); // debug
+            console.log('DEBUG: userId: ' + createdUserId); // debug
             res.send(result);
         }
     })
@@ -35,6 +35,35 @@ router.post('/register', registrationValidator, (req, res) => {
         console.log(err);
         res.send(result);
     });
+});
+
+router.post('/become-a-mod', (req, res) => {
+    let result = {status: '', message: ''}; // for the frontend
+    const username = req.body.username;
+    const password = req.body.password;
+
+    UsersModel.authenticate(username, password) // check if credentials are valid
+    .then(userId => {
+        if (userId < 0) throw new CustomError('Error: Invalid username and/or password.');
+        else return UsersModel.makeMod(userId); // make the user a mod
+    })
+    .then(userId => {
+        if (userId < 0) throw new Error('Error with makeMod().');
+        else { // successfully made user a mod
+            result.status = 'success';
+            result.message = `Congratulations! '${username}' is now a moderator.`;
+            console.log('DEBUG: userId: ' + userId); // debug
+            res.send(result);
+        }
+    })
+    .catch(err => {
+        result.status = 'error';
+        if (err instanceof CustomError) result.message = err.message;
+        else result.message = 'Server Error: Your application could not be submitted.';
+        
+        console.log(err);
+        res.send(result);
+    })
 });
 
 module.exports = router;

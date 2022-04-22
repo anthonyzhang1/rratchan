@@ -3,12 +3,12 @@ const BoardsModel = {};
 
 /** Get boards sorted in alphabetical order by short name. */
 BoardsModel.getBoards = () => {
-    let query = `SELECT short_name, name
-                 FROM boards
-                 ORDER BY short_name ASC;`;
+    const query = `SELECT short_name, name
+                   FROM boards
+                   ORDER BY short_name ASC;`;
 
     return db.query(query)
-    .then(([rows, fields]) => { return rows; })
+    .then(([results, fields]) => { return results; })
     .catch(err => Promise.reject(err));
 }
 

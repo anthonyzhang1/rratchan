@@ -6,6 +6,5 @@
 }
 
 .front-page .table {width: 40%;}
-.front-page .table > thead, .front-page .table > tbody {border: black solid 1px;}
-
+.front-page .table thead, .front-page .table tbody {border: black solid 1px;}
 .front-page .short-name-table-column {width: 20%;}

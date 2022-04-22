@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 
 /** Prepares the data from the backend and creates a table row with it.
@@ -37,7 +38,8 @@ export default function FrontPage() {
     return (
         <div className='front-page'>
             <h1 className='page-title'>&#128000; rratchan</h1>
-            <h4>[Create a New Board] (mods only)</h4>
+            <h4>[<Link to='/become-a-mod' className='clickable-in-brackets'>Apply to Become a Mod</Link>]</h4>
+            <h4>[<Link to='#' className='clickable-in-brackets'>Create a New Board</Link>] (mods only)</h4>
             <hr />
             <h3>Boards</h3>
             <div className='d-flex justify-content-center'>

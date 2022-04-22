@@ -3,7 +3,27 @@
     margin: 0;
 }
 
-.page-title {color: #af0a0f;}
+.page-title {
+    color: #af0a0f;
+    margin-bottom: 0.75%;
+}
+
+.clickable-in-brackets {
+    text-decoration: none;
+    color: #34345c;
+}
+
+.clickable-in-brackets:hover {color: #dd0000;}
+
+.form-control {
+    margin-left: 35%;
+    width: 30%;
+}
+
+.btn {
+    background-color: #34345c;
+    margin-top: 1%;
+}
 
 /* =========== Navbar START ============ */
 .navbar-component {
@@ -12,6 +32,6 @@
     margin-bottom: 0.75%;
 }
 
-.navbar-component .nav-link {color: green;}
-.navbar-component .nav-link:hover {color: green;}
+.navbar-component .nav-link {color: #34345c;}
+.navbar-component .nav-link:hover {color: #dd0000;}
 /* ============ Navbar END ============= */
