@@ -58,7 +58,7 @@ export default function Register() {
                     <Form.Control required type='email' placeholder='Email Address' value={form.email}
                         onChange={e => updateForm({email: e.target.value})}
                     />
-                    <Form.Text>Max 100 characters.</Form.Text>
+                    <Form.Text>Max 128 characters, and must be in the form 'username@domain'.</Form.Text>
                 </Form.Group>
 
                 <Form.Group className='mb-3' controlId='registration-form-password'>

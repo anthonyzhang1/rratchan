@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const {registrationValidator} = require('../middleware/validation');
 const UsersModel = require('../models/Users');
 const CustomError = require('../helpers/CustomError');
 
-// TODO: validate credentials, including confirm password
-/** Attempt to create an account with the given credentials. */
-router.post('/register', (req, res) => {
-    console.log(req.body); // debug
-    let result = {status: '', message: ''} // for the frontend
-
+/** Validate the provided credentials on the server-side,
+  * then attempt to create an account with those credentials. */
+router.post('/register', registrationValidator, (req, res) => {
+    let result = {status: '', message: ''}; // for the frontend
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
@@ -29,6 +28,7 @@ router.post('/register', (req, res) => {
         }
     })
     .catch(err => {
+        result.status = 'error';
         if (err instanceof CustomError) result.message = err.message;
         else result.message = 'Server Error: Your account could not be created.';
         
