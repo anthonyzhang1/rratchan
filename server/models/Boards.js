@@ -8,9 +8,7 @@ BoardsModel.getBoards = () => {
                  ORDER BY short_name ASC;`;
 
     return db.query(query)
-    .then(([rows, fields]) => {
-        return rows;
-    })
+    .then(([rows, fields]) => { return rows; })
     .catch(err => Promise.reject(err));
 }
 

@@ -1,12 +1,10 @@
 var db = require('../database/dbPool');
 const UsersModel = {};
 
-/** Returns true if the username already exists. */
+/** Returns true if the username has been taken. */
 UsersModel.usernameExists = (username) => {
     return db.query('SELECT id FROM users WHERE username=?', [username])
-    .then(([rows, fields]) => {
-        return rows.length > 0;
-    })
+    .then(([rows, fields]) => { return rows.length > 0; })
     .catch(err => Promise.reject(err));
 }
 
