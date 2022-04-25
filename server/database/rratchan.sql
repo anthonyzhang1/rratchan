@@ -22,7 +22,7 @@ CREATE TABLE boards (
     id          int NOT NULL UNIQUE AUTO_INCREMENT,
     short_name  varchar(5) NOT NULL UNIQUE,
     name        varchar(64) NOT NULL UNIQUE,
-    description varchar(3000),
+    description varchar(2000),
     user_id     int,
     PRIMARY KEY (id),
     CONSTRAINT board_creator_id FOREIGN KEY (user_id) REFERENCES users (id)

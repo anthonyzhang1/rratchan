@@ -1,0 +1,8 @@
+.create-board-page * {text-align: center;}
+
+.create-board-page #create-board-form-password {margin-bottom: 2.5%;}
+
+.create-board-page #create-board-form-description {
+    margin-left: 25%;
+    width: 50%;
+}

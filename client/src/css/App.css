@@ -1,3 +1,4 @@
+/* =========== Shared START ============ */
 * {
     background-color: #eef2ff;
     margin: 0;
@@ -7,6 +8,8 @@
     color: #af0a0f;
     margin-bottom: 0.75%;
 }
+
+.page-description {margin-bottom: 0.5%;}
 
 .clickable-in-brackets {
     text-decoration: none;
@@ -24,8 +27,9 @@
     background-color: #34345c;
     margin-top: 1%;
 }
+/* =========== Shared END ============== */
 
-/* =========== Navbar START ============ */
+/* ============ Navbar START ============ */
 .navbar-component {
     max-height: 2.6em;
     border-bottom: solid grey 1px;
@@ -34,4 +38,8 @@
 
 .navbar-component .nav-link {color: #34345c;}
 .navbar-component .nav-link:hover {color: #dd0000;}
-/* ============ Navbar END ============= */
+/* ============ Navbar END ============== */
+
+/* =========== Registration START ============ */
+.registration-page * {text-align: center;}
+/* =========== Registration END ============== */

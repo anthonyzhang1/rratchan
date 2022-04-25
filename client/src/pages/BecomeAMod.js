@@ -29,24 +29,23 @@ export default function BecomeAMod() {
         .then(data => { setResult(data); })
         .catch(console.log());
     }
-
+    
     useEffect(() => {
         // Reset the form after successful submission
-        if (result && result.status === 'success') {
-            setForm({username: '', password: ''});
-        }
+        if (result && result.status === 'success') setForm({username: '', password: ''});
     }, [result]);
 
     return (
         <div className='become-a-mod-page'>
             <h1 className='page-title'>Apply to Become a Mod</h1>
-            <p>Enter your account credentials, and a server administrator shall
-               review your account to determine whether you are suited for a moderator position.
-               We will send you an email after the review process letting you know if you may proceed
-               to the interview stage, or if you were denied moderator status.
-               <br />
-               <strong>Note: Since rratchan is not currently intended for public use and is locally hosted,
-               we will automatically grant all applicants moderator status. No emails will be sent.</strong>
+            <p className='page-description'>
+            Enter your account credentials, and a server administrator shall review your
+            account to determine whether you are suited for a moderator position.
+            We will send you an email after the review process letting you know if you may proceed
+            to the interview stage, or if you were denied moderator status.
+            <br />
+            <strong>Note: Since rratchan is not currently intended for public use and is locally hosted,
+            we will automatically grant all applicants moderator status. No emails will be sent.</strong>
             </p>
 
             {result !== null && <h3>{result.message}</h3>}

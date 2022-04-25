@@ -42,34 +42,35 @@ export default function Register() {
     return (
         <div className='registration-page'>
             <h1 className='page-title'>Registration</h1>
+            <p className='page-description'>An asterisk (*) indicates a required field.</p>
 
             {result !== null && <h3>{result.message}</h3>}
             <Form onSubmit={onSubmit}>
                 <Form.Group className='mb-3' controlId='registration-form-username'>
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>*Username</Form.Label>
                     <Form.Control required type='text' placeholder='Username' value={form.username}
                         onChange={e => updateForm({username: e.target.value})}
                     />
-                    <Form.Text>Max 64 characters, and cannot contain '#'.</Form.Text>
+                    <Form.Text>Max 64 characters.</Form.Text>
                 </Form.Group>
 
                 <Form.Group className='mb-3' controlId='registration-form-email'>
-                    <Form.Label>Email Address</Form.Label>
+                    <Form.Label>*Email Address</Form.Label>
                     <Form.Control required type='email' placeholder='Email Address' value={form.email}
                         onChange={e => updateForm({email: e.target.value})}
                     />
-                    <Form.Text>Max 128 characters, and must be in the form 'username@domain'.</Form.Text>
+                    <Form.Text>Max 128 characters, and must be in the form: username@domain.</Form.Text>
                 </Form.Group>
 
                 <Form.Group className='mb-3' controlId='registration-form-password'>
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>*Password</Form.Label>
                     <Form.Control required type='password' placeholder='Password' value={form.password}
                         onChange={e => updateForm({password: e.target.value})}
                     />
-                    <Form.Text>Max 64 characters, and cannot contain '#'.</Form.Text>
+                    <Form.Text>Max 64 characters.</Form.Text>
                 </Form.Group>
                 <Form.Group className='mb-3' controlId='registration-form-confirm-password'>
-                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Label>*Confirm Password</Form.Label>
                     <Form.Control required type='password' placeholder='Confirm Password' value={form.confirmPassword}
                         onChange={e => updateForm({confirmPassword: e.target.value})}
                     />

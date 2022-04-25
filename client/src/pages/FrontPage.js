@@ -16,15 +16,13 @@ export default function FrontPage() {
 
     /** Get the boards from the database. */
     async function getBoards() {
-        fetch('/api/boards/getBoards')
+        fetch('/api/boards/get-boards')
         .then(res => res.json())
         .then(data => { setBoards(data); })
         .catch(console.log());
     }
 
-    useEffect(() => {
-        getBoards();
-    }, []);
+    useEffect(() => { getBoards(); }, []);
 
     /** Displays the boards in the boards table. */
     function displayBoards() {
@@ -39,7 +37,7 @@ export default function FrontPage() {
         <div className='front-page'>
             <h1 className='page-title'>&#128000; rratchan</h1>
             <h4>[<Link to='/become-a-mod' className='clickable-in-brackets'>Apply to Become a Mod</Link>]</h4>
-            <h4>[<Link to='#' className='clickable-in-brackets'>Create a New Board</Link>] (mods only)</h4>
+            <h4>[<Link to='/create-board' className='clickable-in-brackets'>Create a New Board</Link>] (mods only)</h4>
             <hr />
             <h3>Boards</h3>
             <div className='d-flex justify-content-center'>

@@ -21,15 +21,33 @@ UsersModel.createAccount = (username, email, password) => {
     .catch(err => Promise.reject(err));
 }
 
-/** Checks if the given username and password pair are in the database.
-  * If it is, return that user's id. If it is not, return -1. */
+/** Checks if the given username and password belong to an account.
+  * If a matching account is found, return that account's id. The id will be a positive number.
+  * If NO matching account is found, return -1. */
 UsersModel.authenticate = (username, password) => {
-    const query = `SELECT id FROM users WHERE username=? AND password=?;`;
+    const query = `SELECT id FROM users WHERE username=? AND password = BINARY ?;`;
 
     return db.query(query, [username, password])
     .then(([results, fields]) => {
         if (results.length === 1) return results[0].id;
         else return -1;
+    })
+    .catch(err => Promise.reject(err));
+}
+
+/** Checks if the given username and password belong to a moderator account.
+  * If the account is a moderator account, return that account's id.
+  *   The id will be a positive number.
+  * If the account is NOT a moderator account, return 0.
+  * If the username and password do not belong to an account, return -1. */
+UsersModel.authenticateMod = (username, password) => {
+    const query = `SELECT id, is_mod FROM users WHERE username=? AND password = BINARY ?;`;
+
+    return db.query(query, [username, password])
+    .then(([results, fields]) => {
+        if (results.length === 1 && results[0].is_mod === 1) return results[0].id; // mod
+        else if (results.length === 1) return 0; // not mod
+        else return -1; // no account found
     })
     .catch(err => Promise.reject(err));
 }

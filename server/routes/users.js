@@ -13,14 +13,14 @@ router.post('/register', registrationValidator, (req, res) => {
     const password = req.body.password;
 
     UsersModel.usernameExists(username) // check if username exists
-    .then((userExists) => {
-        if (userExists) throw new CustomError(
-            `Registration Failed: The username '${username}' has already been taken.`);
-        else return UsersModel.createAccount(username, email, password); // create the account
+    .then(userExists => {
+        if (userExists) {
+            throw new CustomError(`Error: The username '${username}' has already been taken.`);
+        } else return UsersModel.createAccount(username, email, password); // create the account
     })
     .then(createdUserId => {
         if (createdUserId < 0) throw new Error('Error with createAccount().');
-        else { // successfully created the account
+        else { // account created
             result.status = 'success';
             result.message = `Successfully registered the account '${username}'!`;
             console.log('DEBUG: userId: ' + createdUserId); // debug
