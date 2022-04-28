@@ -1,10 +1,10 @@
-.front-page * {text-align: center;}
-
 .front-page hr {
     width: 50%;
     margin: 1% auto 0.5% auto;
 }
 
-.front-page .table {width: 40%;}
-.front-page .table thead, .front-page .table tbody {border: black solid 1px;}
-.front-page .short-name-table-column {width: 20%;}
+.front-page .boards-list {
+    text-align: left;
+    width: 40%;
+    margin-left: 30%;
+}

@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Table from 'react-bootstrap/Table';
 
-/** Prepares the data from the backend and creates a table row with it.
-  * The table row can then be inserted into a table. */
-const BoardTableEntry = (props) => (
-    <tr>
-        <td>/{props.board.short_name}/</td>
-        <td>{props.board.name}</td>
-    </tr>
+/** Creates a row for a board which can be clicked on to go to the respective board's catalog.
+  * The format of the text in the row is: /short name/ - name. */
+const BoardRow = (props) => (
+    <Link to={`/board/${props.board.short_name}/`} className='clickable'>
+        /{props.board.short_name}/ - {props.board.name}<br />
+    </Link>
 );
 
 export default function FrontPage() {
@@ -27,30 +25,18 @@ export default function FrontPage() {
     /** Displays the boards in the boards table. */
     function displayBoards() {
         return boards.map(board => {
-            return (
-                <BoardTableEntry key={board.short_name} board={board} />
-            );
+            return (<BoardRow key={board.short_name} board={board} />);
         });
     }
 
     return (
         <div className='front-page'>
             <h1 className='page-title'>&#128000; rratchan</h1>
-            <h4>[<Link to='/become-a-mod' className='clickable-in-brackets'>Apply to Become a Mod</Link>]</h4>
-            <h4>[<Link to='/create-board' className='clickable-in-brackets'>Create a New Board</Link>] (mods only)</h4>
+            <h4>[<Link to='/become-a-mod' className='clickable'>Apply to Become a Mod</Link>]</h4>
+            <h4>[<Link to='/create-board' className='clickable'>Create a New Board</Link>] (mods only)</h4>
             <hr />
             <h3>Boards</h3>
-            <div className='d-flex justify-content-center'>
-                <Table bordered hover size='sm'>
-                    <thead>
-                        <tr>
-                            <th className='short-name-table-column'>Short Name</th>
-                            <th>Board</th>
-                        </tr>
-                    </thead>
-                    <tbody>{displayBoards()}</tbody>
-                </Table>
-            </div>
+            <div className='boards-list'>{displayBoards()}</div>
         </div>
     );
 }

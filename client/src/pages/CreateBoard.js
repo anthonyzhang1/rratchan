@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Button, Form} from 'react-bootstrap';
 
 export default function CreateBoard() {
@@ -70,7 +70,8 @@ export default function CreateBoard() {
                     <Form.Control required type='text' placeholder='Board Short Name, e.g. jp'
                         value={form.shortName} onChange={e => updateForm({shortName: e.target.value})}
                     />
-                    <Form.Text>Max 5 characters. Must be a new short name, and cannot contain '/'.</Form.Text>
+                    <Form.Text>Max 5 characters. Must be a new short name, be in lowercase,
+                               and cannot contain '/'.</Form.Text>
                 </Form.Group>
                 <Form.Group className='mb-2' controlId='create-board-form-name'>
                     <Form.Label>*Board Name</Form.Label>

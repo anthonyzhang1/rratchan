@@ -2,8 +2,6 @@
 --
 -- You can just copy and paste this entire file into MySQL Workbench to
 -- create the database and tables.
---
--- Last updated 04/21/22, 20:10 PST.
 
 CREATE DATABASE rratchan;
 USE rratchan;
