@@ -86,7 +86,7 @@ export default function CreateBoard() {
                     <Form.Control as='textarea' rows={6} placeholder='Enter a description for the board.'
                         value={form.description} onChange={e => updateForm({description: e.target.value})}
                     />
-                    <Form.Text>Max 2000 characters.</Form.Text>
+                    <Form.Text>Max 1000 characters.</Form.Text>
                 </Form.Group>
 
                 <Button className='mb-5' variant='primary' type='submit'>Create Board</Button>

@@ -4,7 +4,7 @@
 const createBoardValidator = (req, res, next) => {
     const MAX_SHORT_NAME_LENGTH = 5;
     const MAX_BOARD_NAME_LENGTH = 64;
-    const MAX_DESCRIPTION_LENGTH = 2000;
+    const MAX_DESCRIPTION_LENGTH = 1000;
     const FORWARD_SLASH = '/';
 
     let result = {status: 'error'}; // for the frontend

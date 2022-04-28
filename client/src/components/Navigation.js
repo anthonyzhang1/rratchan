@@ -7,6 +7,7 @@ export default function Navigation() {
                 <Navbar.Brand href='/'>rratchan</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className='justify-content-end'>
+                    <Nav.Link href='/todo'>FAQs</Nav.Link>
                     <Nav.Link href='/register'>Register</Nav.Link>
                 </Navbar.Collapse>
             </Container>

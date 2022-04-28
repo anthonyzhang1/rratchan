@@ -20,7 +20,7 @@ CREATE TABLE boards (
     id          int NOT NULL UNIQUE AUTO_INCREMENT,
     short_name  varchar(5) NOT NULL UNIQUE,
     name        varchar(64) NOT NULL UNIQUE,
-    description varchar(2000),
+    description varchar(1000),
     user_id     int,
     PRIMARY KEY (id),
     CONSTRAINT board_creator_id FOREIGN KEY (user_id) REFERENCES users (id)
@@ -31,7 +31,7 @@ CREATE TABLE boards (
 CREATE TABLE threads (
     id             int NOT NULL UNIQUE AUTO_INCREMENT,
     subject        varchar(255),
-    body           varchar(5000),
+    body           varchar(2000),
     image_path     varchar(500) NOT NULL,
     thumbnail_path varchar(500) NOT NULL,
     orig_filename  varchar(255) NOT NULL,
