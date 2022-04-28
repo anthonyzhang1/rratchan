@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
   * The format of the text in the row is: /short name/ - name. */
 const BoardRow = (props) => (
     <Link to={`/board/${props.board.short_name}/`} className='clickable'>
-        /{props.board.short_name}/ - {props.board.name}<br />
+        <strong>/{props.board.short_name}/</strong> - {props.board.name}<br />
     </Link>
 );
 
@@ -25,7 +25,7 @@ export default function FrontPage() {
     /** Displays the boards in the boards table. */
     function displayBoards() {
         return boards.map(board => {
-            return (<BoardRow key={board.short_name} board={board} />);
+            return <BoardRow key={board.short_name} board={board} />;
         });
     }
 

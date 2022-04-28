@@ -4,12 +4,13 @@ import {Route, Routes, useParams} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css'; // bootstrap CSS
 import './css/App.css'; // shared CSS
 import './css/BecomeAMod.css';
+import './css/BoardCatalog.css';
 import './css/CreateBoard.css';
 import './css/FrontPage.css';
 
 import NotFound from './pages/NotFound';
 import BecomeAMod from './pages/BecomeAMod';
-import BoardCatalog from './components/BoardCatalog';
+import BoardCatalog from './pages/BoardCatalog';
 import CreateBoard from './pages/CreateBoard';
 import FrontPage from './pages/FrontPage';
 import Navigation from './components/Navigation';

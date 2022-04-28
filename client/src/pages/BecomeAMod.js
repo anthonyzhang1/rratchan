@@ -32,7 +32,7 @@ export default function BecomeAMod() {
     
     useEffect(() => {
         // Reset the form after successful submission
-        if (result && result.status === 'success') setForm({username: '', password: ''});
+        if (result?.status === 'success') setForm({username: '', password: ''});
     }, [result]);
 
     return (
@@ -48,7 +48,7 @@ export default function BecomeAMod() {
             we will automatically grant all applicants moderator status. No emails will be sent.</strong>
             </p>
 
-            {result !== null && <h3>{result.message}</h3>}
+            <h3>{result?.message}</h3>
             <Form onSubmit={onSubmit}>
                 <Form.Group className='mb-3' controlId='become-a-mod-form-username'>
                     <Form.Label>Username</Form.Label>

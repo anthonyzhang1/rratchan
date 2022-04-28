@@ -34,7 +34,7 @@ export default function Register() {
 
     useEffect(() => {
         // Reset the form after successful submission
-        if (result && result.status === 'success') {
+        if (result?.status === 'success') {
             setForm({username: '', email: '', password: '', confirmPassword: ''});
         }
     }, [result]);
@@ -44,7 +44,7 @@ export default function Register() {
             <h1 className='page-title'>Registration</h1>
             <p className='page-description'>An asterisk (*) indicates a required field.</p>
 
-            {result !== null && <h3>{result.message}</h3>}
+            <h3>{result?.message}</h3>
             <Form onSubmit={onSubmit}>
                 <Form.Group className='mb-3' controlId='registration-form-username'>
                     <Form.Label>*Username</Form.Label>

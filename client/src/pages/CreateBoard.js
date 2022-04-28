@@ -35,7 +35,7 @@ export default function CreateBoard() {
 
     useEffect(() => {
         // Reset the form after successful submission
-        if (result && result.status === 'success') {
+        if (result?.status === 'success') {
             setForm({username: '', password: '', shortName: '', boardName: '', description: ''});
         }
     }, [result]);
@@ -50,7 +50,7 @@ export default function CreateBoard() {
             An asterisk (*) indicates a required field.
             </p>
 
-            {result !== null && <h3>{result.message}</h3>}
+            <h3>{result?.message}</h3>
             <Form onSubmit={onSubmit}>
             <Form.Group className='mb-2' controlId='create-board-form-username'>
                     <Form.Label>*Moderator Username</Form.Label>

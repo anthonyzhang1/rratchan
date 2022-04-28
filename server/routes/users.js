@@ -7,7 +7,7 @@ const CustomError = require('../helpers/CustomError');
 /** Validate the provided credentials on the server-side,
   * then attempt to create an account with those credentials. */
 router.post('/register', registrationValidator, (req, res) => {
-    let result = {status: '', message: ''}; // for the frontend
+    let result = {}; // for the frontend
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
@@ -23,7 +23,7 @@ router.post('/register', registrationValidator, (req, res) => {
         else { // account created
             result.status = 'success';
             result.message = `Successfully registered the account '${username}'!`;
-            console.log('DEBUG: userId: ' + createdUserId); // debug
+            console.log('DEBUG: userId: ' + createdUserId);
             res.send(result);
         }
     })
@@ -38,7 +38,7 @@ router.post('/register', registrationValidator, (req, res) => {
 });
 
 router.post('/become-a-mod', (req, res) => {
-    let result = {status: '', message: ''}; // for the frontend
+    let result = {}; // for the frontend
     const username = req.body.username;
     const password = req.body.password;
 
@@ -52,7 +52,7 @@ router.post('/become-a-mod', (req, res) => {
         else { // successfully made user a mod
             result.status = 'success';
             result.message = `Congratulations! '${username}' is now a moderator.`;
-            console.log('DEBUG: userId: ' + userId); // debug
+            console.log('DEBUG: userId: ' + userId);
             res.send(result);
         }
     })

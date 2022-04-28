@@ -4,7 +4,7 @@ const UsersModel = {};
 /** Returns true if the username has been taken. */
 UsersModel.usernameExists = (username) => {
     return db.query('SELECT id FROM users WHERE username=?;', [username])
-    .then(([results, fields]) => { return results.length > 0; })
+    .then(([results]) => { return results.length > 0; })
     .catch(err => Promise.reject(err));
 }
 
@@ -14,7 +14,7 @@ UsersModel.createAccount = (username, email, password) => {
     const query = `INSERT INTO users (username, email, password) VALUES (?, ?, ?);`;
 
     return db.query(query, [username, email, password])
-    .then(([results, fields]) => {
+    .then(([results]) => {
         if (results.affectedRows) return results.insertId;
         else return -1;
     })
@@ -28,7 +28,7 @@ UsersModel.authenticate = (username, password) => {
     const query = `SELECT id FROM users WHERE username=? AND password = BINARY ?;`;
 
     return db.query(query, [username, password])
-    .then(([results, fields]) => {
+    .then(([results]) => {
         if (results.length === 1) return results[0].id;
         else return -1;
     })
@@ -44,7 +44,7 @@ UsersModel.authenticateMod = (username, password) => {
     const query = `SELECT id, is_mod FROM users WHERE username=? AND password = BINARY ?;`;
 
     return db.query(query, [username, password])
-    .then(([results, fields]) => {
+    .then(([results]) => {
         if (results.length === 1 && results[0].is_mod === 1) return results[0].id; // mod
         else if (results.length === 1) return 0; // not mod
         else return -1; // no account found
@@ -56,7 +56,7 @@ UsersModel.authenticateMod = (username, password) => {
   * On success, return the user's id. If no such account exists, return -1. */
 UsersModel.makeMod = (userId) => {
     return db.query(`UPDATE users SET is_mod=1 WHERE id=?;`, [userId])
-    .then(([results, fields]) => {
+    .then(([results]) => {
         if (results.affectedRows) return userId;
         else return -1;
     })

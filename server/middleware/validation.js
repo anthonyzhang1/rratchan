@@ -7,7 +7,7 @@ const createBoardValidator = (req, res, next) => {
     const MAX_DESCRIPTION_LENGTH = 2000;
     const FORWARD_SLASH = '/';
 
-    let result = {status: 'error', message: ''}; // for the frontend
+    let result = {status: 'error'}; // for the frontend
     const shortName = req.body.shortName;
     const boardName = req.body.boardName;
     const description = req.body.description;
@@ -38,7 +38,7 @@ const registrationValidator = (req, res, next) => {
     const MAX_PASSWORD_LENGTH = 64;
     const EMAIL_FORMAT = /^\S+@\S+$/; // emails must be in the form: username@domain.
 
-    let result = {status: 'error', message: ''}; // for the frontend
+    let result = {status: 'error'}; // for the frontend
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;

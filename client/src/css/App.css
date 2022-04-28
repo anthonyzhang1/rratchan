@@ -7,7 +7,7 @@
 
 .page-title {
     color: #af0a0f;
-    margin-bottom: 0.75%;
+    margin-bottom: 0.5%;
 }
 
 .page-description {margin-bottom: 0.5%;}
@@ -15,9 +15,7 @@
 .clickable {
     text-decoration: none;
     color: #34345c;
-}
-
-.clickable:hover {color: #dd0000;}
+} .clickable:hover {color: #dd0000;}
 
 .form-control {
     margin-left: 35%;
@@ -27,7 +25,11 @@
 .btn {
     background-color: #34345c;
     margin-top: 1%;
-}
+} .btn:focus {
+    background-color: #34345c;
+    box-shadow: none;
+} .btn:hover {background-color: #545478;}
+
 /* =========== Shared END ============== */
 
 /* ============ Navbar START ============ */
@@ -40,7 +42,3 @@
 .navbar-component .nav-link {color: #34345c;}
 .navbar-component .nav-link:hover {color: #dd0000;}
 /* ============ Navbar END ============== */
-
-/* =========== Registration START ============ */
-.registration-page * {text-align: center;}
-/* =========== Registration END ============== */

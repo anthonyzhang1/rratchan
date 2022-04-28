@@ -6,14 +6,14 @@ const UsersModel = require('../models/Users');
 const CustomError = require('../helpers/CustomError');
 
 /* Send a list of boards to the frontend. */
-router.get('/get-boards', (req, res) => {
+router.get('/get-boards', (_, res) => {
     BoardsModel.getBoards()
     .then(results => { res.send(results); })
     .catch(err => console.log(err));
 });
 
 router.post('/create-board', createBoardValidator, (req, res) => {
-    let result = {status: '', message: ''}; // for the frontend
+    let result = {}; // for the frontend
     const username = req.body.username;
     const password = req.body.password;
     const shortName = req.body.shortName.toLowerCase();
@@ -50,7 +50,7 @@ router.post('/create-board', createBoardValidator, (req, res) => {
         else { // board created
             result.status = 'success';
             result.message = `Successfully created /${shortName}/!`;
-            console.log('DEBUG: boardId: ' + boardId); // debug
+            console.log(`DEBUG: boardId: ${boardId}`); 
             res.send(result);
         }
     })
@@ -59,6 +59,26 @@ router.post('/create-board', createBoardValidator, (req, res) => {
         if (err instanceof CustomError) result.message = err.message;
         else result.message = 'Server Error: The board could not be created.';
         
+        console.log(err);
+        res.send(result);
+    });
+});
+
+router.post('/get-catalog', (req, res) => {
+    let result = {}; // for the frontend
+    const shortName = req.body.shortName;
+
+    BoardsModel.getBoardData(shortName)
+    .then(boardData => {
+        if (boardData === -1) throw new Error('No board found in getBoardData().');
+        else {
+            result.boardData = boardData;
+            console.log(`DEBUG: boardData.id: ${boardData.id}`);
+            res.send(result);
+        }
+    })
+    .catch(err => {
+        result.status = 'error';
         console.log(err);
         res.send(result);
     });
