@@ -4,3 +4,6 @@ client/node_modules
 
 # readme's
 client/*.md
+
+# user uploads
+server/public/uploads/*
