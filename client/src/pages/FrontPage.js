@@ -13,7 +13,7 @@ export default function FrontPage() {
     const [boards, setBoards] = useState([]);
 
     /** Get the boards from the database. */
-    async function getBoards() {
+    function getBoards() {
         fetch('/api/boards/get-boards')
         .then(res => res.json())
         .then(data => { setBoards(data); })

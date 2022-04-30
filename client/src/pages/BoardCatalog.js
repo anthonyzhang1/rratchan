@@ -7,10 +7,12 @@ export default function BoardCatalog(props) {
     const [boardData, setBoardData] = useState([]); // first query
     const [catalog, setCatalog] = useState([]); // second query
     const [startThreadFormIsVisible, setStartThreadFormIsVisible] = useState(false);
+    const [startThreadSuccessMessage, setStartThreadSuccessMessage] = useState(null);
 
     useEffect(() => {
-        /** Get the board data and recent threads from the database. */
-        (function displayCatalog() {
+        
+        (/** Get the board data and recent threads from the database. */
+        function displayCatalog() {
             fetch('/api/boards/get-catalog', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -25,16 +27,21 @@ export default function BoardCatalog(props) {
         })();
     }, [shortName]);
 
-    function displayStartThreadForm() { setStartThreadFormIsVisible(true); }
+    /** Close the start thread form upon successful thread creation. */
+    useEffect(() => {
+        if (startThreadSuccessMessage) setStartThreadFormIsVisible(false);
+    }, [startThreadSuccessMessage]);
 
-    let startThreadForm;
-    if (startThreadFormIsVisible) startThreadForm = <StartThreadForm boardId={boardData.id} />;
-    else {
-        startThreadForm =
-        <h4>[<Link to='#' className='clickable' onClick={displayStartThreadForm}>
-            Start a New Thread
-        </Link>]</h4>;
+    /** Toggle whether the start thread form is visible.
+      * Also clears any success messages from starting a thread. */
+    function toggleStartThreadForm() {
+        setStartThreadFormIsVisible(!startThreadFormIsVisible);
+        setStartThreadSuccessMessage(null);
     }
+
+    let toggleText;
+    if (startThreadFormIsVisible) toggleText = 'Close Form';
+    else toggleText = 'Start a New Thread';
 
     // if a board with the given short name does not exist, show the not found page
     if (boardData === 'error') return <Navigate to='/404' />;
@@ -47,7 +54,12 @@ export default function BoardCatalog(props) {
             </h6>
             <p className='page-description'>{boardData.description}</p>
             <hr className='board-data-divider' />
-            {startThreadForm}
+            <h4>[<Link to='#' className='clickable' onClick={toggleStartThreadForm}>{toggleText}</Link>]</h4>
+            {startThreadFormIsVisible &&
+             <StartThreadForm boardId={boardData.id}
+              passStartThreadSuccessMessage={setStartThreadSuccessMessage} />
+            }
+            {startThreadSuccessMessage}
         </div>
     );
 }

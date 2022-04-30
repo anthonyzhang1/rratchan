@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 /** Validates the create board form on the server-side. If any of the fields are invalid,
   * stop the board creation attempt and display an error message.
   * If all fields are valid, call next(). */
@@ -62,4 +64,47 @@ const registrationValidator = (req, res, next) => {
     } else next();
 }
 
-module.exports = {createBoardValidator, registrationValidator};
+/** Validates the start thread form on the server-side. If any of the fields are invalid,
+  * stop the start thread attempt and display an error message.
+  * If all fields are valid, call next(). */
+const startThreadValidator = (req, res, next) => {
+    const MAX_SUBJECT_LENGTH = 255;
+    const MAX_BODY_LENGTH = 2000;
+    const MAX_ORIGINAL_FILENAME_LENGTH = 255;
+
+    let result = {status: 'error'}; // for the frontend
+    const username = req.body.username; // can be empty
+    const password = req.body.password; // can be empty
+    const subject = req.body.subject; // can be empty
+    const body = req.body.body; // can be empty
+    const originalFilename = req.file?.originalname;
+
+    /** Deletes the file multer made if it exists, then send an error response. */
+    function cleanUpImageAndSendResult() {
+        if (req.file) fs.unlink(req.file.path, () => {});
+        res.send(result);
+    }
+
+    if (username.length > 0 && password.length === 0) {
+        result.message = `Error: You must enter a password if you enter a username.`;
+        cleanUpImageAndSendResult();
+    } else if (username.length === 0 && password.length > 0) {
+        result.message = `Error: You must enter a username if you enter a password.`;
+        cleanUpImageAndSendResult();
+    } else if (subject.length > MAX_SUBJECT_LENGTH) {
+        result.message = `Error: Your thread subject exceeded ${MAX_SUBJECT_LENGTH} characters.`;
+        cleanUpImageAndSendResult();
+    } else if (body.length > MAX_BODY_LENGTH) {
+        result.message = `Error: Your thread body exceeded ${MAX_BODY_LENGTH} characters.`;
+        cleanUpImageAndSendResult();
+    } else if (!req.file) { // check if a file was uploaded
+        result.message = `Error: Threads are required to have an image.`;
+        cleanUpImageAndSendResult();
+    } else if (originalFilename.length === 0 || originalFilename.length > MAX_ORIGINAL_FILENAME_LENGTH) {
+        result.message = `Error: Your image's filename must be between
+                          1 and ${MAX_ORIGINAL_FILENAME_LENGTH} characters long.`;
+        cleanUpImageAndSendResult();
+    } else next();
+}
+
+module.exports = {createBoardValidator, registrationValidator, startThreadValidator};

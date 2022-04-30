@@ -1,16 +1,18 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import {Button, Col, Form, Row} from 'react-bootstrap';
 
 export default function StartThreadForm(props) {
     const [form, setForm] = useState({
         username: '',
         password: '',
-        image: '',
         subject: '',
         body: '',
         boardId: props.boardId
     });
+    const [threadImage, setThreadImage] = useState(null);
     const [result, setResult] = useState(null);
+
+    const fileInput = useRef();
 
     /** Update the form's state. */
     function updateForm(value) {
@@ -23,12 +25,14 @@ export default function StartThreadForm(props) {
       * The backend will tell us whether the insertion was successful or not. */
     async function onSubmit(e) {
         e.preventDefault();
-        console.log(form);
+        
+        const formData = new FormData();
+        for (const key in form) formData.append(key, form[key]);
+        formData.append('image', threadImage);
 
         await fetch('/api/threads/start-thread', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(form)
+            body: formData
         })
         .then(res => res.json())
         .then(data => { setResult(data); })
@@ -38,9 +42,12 @@ export default function StartThreadForm(props) {
     useEffect(() => {
         // Reset the form after successful submission
         if (result?.status === 'success') {
-            setForm({username: '', password: '', subject: '', body: '', file: ''});
+            setForm({username: '', password: '', subject: '', body: '', boardId: props.boardId});
+            setThreadImage(null);
+            fileInput.current.value = '';
+            props.passStartThreadSuccessMessage(<h3>{result.message}</h3>);
         }
-    }, [result]);
+    }, [result, props.boardId]);
 
     return (
         <div className='start-thread-form-component'>
@@ -64,8 +71,9 @@ export default function StartThreadForm(props) {
                 <Form.Group as={Row} className='mb-1' controlId='start-thread-form-image'>
                     <Form.Label column='sm'>Image (required)</Form.Label>
                     <Col sm={10}>
-                        <Form.Control required size='sm' type='file' value={form.image}
-                         onChange={e => updateForm({image: e.target.value})} />
+                        <Form.Control required size='sm' type='file' name='image' ref={fileInput}
+                         onChange={e => setThreadImage(e.target.files[0])} />
+                        <Form.Text>File must be an image, e.g. a JPEG or PNG.</Form.Text>
                     </Col>
                 </Form.Group>
 

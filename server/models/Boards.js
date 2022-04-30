@@ -43,7 +43,7 @@ BoardsModel.getBoardData = (short_name) => {
 }
 
 /** Creates a board with the given arguments. The arguments should be validated first.
-  * description can be an empty string: it will be stored as null in the database.
+  * description is nullable.
   * On success, return the board's id. On failure, return -1. */
 BoardsModel.createBoard = (short_name, name, description, user_id) => {
     if (description === '') description = null;
