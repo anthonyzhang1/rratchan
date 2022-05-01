@@ -4,6 +4,29 @@ const {registrationValidator} = require('../middleware/validation');
 const UsersModel = require('../models/Users');
 const CustomError = require('../helpers/CustomError');
 
+router.post('/search', (req, res) => {
+    let result = {}; // for the frontend
+    const username = req.body.username;
+
+    UsersModel.getIdWithUsername(username)
+    .then(userId => {
+        if (userId < 0) throw new CustomError(`Error: There is no user with the username '${username}'.`);
+        else {
+            result.status = 'success';
+            result.userId = userId;
+            res.send(result);
+        }
+    })
+    .catch(err => {
+        result.status = 'error';
+        if (err instanceof CustomError) result.message = err.message;
+        else result.message = 'Server Error: User lookup failed.';
+        
+        console.log(err);
+        res.send(result);
+    });
+});
+
 /** Validate the provided credentials on the server-side,
   * then attempt to create an account with those credentials. */
 router.post('/register', registrationValidator, (req, res) => {
@@ -23,7 +46,6 @@ router.post('/register', registrationValidator, (req, res) => {
         else { // account created
             result.status = 'success';
             result.message = `Successfully registered the account '${username}'!`;
-            console.log('DEBUG: userId: ' + createdUserId);
             res.send(result);
         }
     })
@@ -52,7 +74,6 @@ router.post('/become-a-mod', (req, res) => {
         else { // successfully made user a mod
             result.status = 'success';
             result.message = `Congratulations! '${username}' is now a moderator.`;
-            console.log('DEBUG: userId: ' + userId);
             res.send(result);
         }
     })

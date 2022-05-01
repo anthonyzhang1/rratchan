@@ -73,7 +73,10 @@ export default function StartThreadForm(props) {
                     <Col sm={10}>
                         <Form.Control required size='sm' type='file' name='threadImage'
                          ref={fileInput} onChange={e => setThreadImage(e.target.files[0])} />
-                        <Form.Text>File must be an image, e.g. a JPEG or PNG.</Form.Text>
+                        <Form.Text>
+                            File must be an image, e.g. a PNG.
+                            The filename must be between 1 and 255 characters.
+                        </Form.Text>
                     </Col>
                 </Form.Group>
 

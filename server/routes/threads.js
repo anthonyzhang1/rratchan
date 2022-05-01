@@ -41,7 +41,6 @@ router.post('/start-thread', fileUploader.single('threadImage'), startThreadVali
         else { // thread created
             result.status = 'success';
             result.message = 'Thread created!';
-            console.log(`DEBUG: threadId: ${threadId}`);
             res.send(result);
         }
     })
@@ -70,7 +69,6 @@ router.post('/get-thread', (req, res) => {
         if (threadData === -1) throw new Error('No thread found in getThreadData().');
         else {
             result.threadData = threadData;
-            console.log(`DEBUG: threadData.short_name: ${threadData.short_name}`);
             res.send(result);
         }
     })

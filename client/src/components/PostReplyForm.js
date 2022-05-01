@@ -52,7 +52,7 @@ export default function PostReplyForm(props) {
     return (
         <div className='post-reply-form-component'>
             <h3>{result?.message}</h3>
-            <Form onSubmit={onSubmit}>
+            <Form className='post-reply-form' onSubmit={onSubmit}>
                 <Form.Group as={Row} controlId='post-reply-form-username'>
                     <Form.Label column='sm'>Username</Form.Label>
                     <Col sm={10}>
@@ -73,7 +73,9 @@ export default function PostReplyForm(props) {
                     <Col sm={10}>
                         <Form.Control size='sm' type='file' name='replyImage' ref={fileInput}
                          onChange={e => setReplyImage(e.target.files[0])} />
-                        <Form.Text>File must be an image, e.g. a JPEG or PNG.</Form.Text>
+                        <Form.Text>
+                            File must be an image, and the filename must be between 1 and 255 characters.
+                        </Form.Text>
                     </Col>
                 </Form.Group>
 

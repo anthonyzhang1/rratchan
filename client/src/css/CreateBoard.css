@@ -1,6 +1,11 @@
-.create-board-page #create-board-form-password {margin-bottom: 2.5%;}
-
-.create-board-page #create-board-form-description {
+.create-board-page form {
+    margin-left: 25%;
+    margin-right: 25%;
+} .create-board-page .form-control {
     margin-left: 25%;
     width: 50%;
+} .create-board-page #create-board-form-password {margin-bottom: 2.5%;}
+.create-board-page #create-board-form-description {
+    margin-left: 10%;
+    width: 80%;
 }

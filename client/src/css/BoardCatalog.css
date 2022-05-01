@@ -7,14 +7,26 @@
     margin-bottom: 0.5%;
 }
 
+.board-catalog-page form {
+    margin-left: 25%;
+    margin-right: 25%;
+} .board-catalog-page .form-control {
+    margin-left: 25%;
+    width: 50%;
+} .board-catalog-page #start-thread-form-subject, .board-catalog-page #start-thread-form-body {
+    margin-left: 12.5%;
+    width: 75%;
+}
+
+.board-catalog-page .start-thread-form-component {width: 98%; margin-left: 1%;}
 .board-catalog-page .btn {margin-bottom: 1%;}
-.board-catalog-page .row {
+.board-catalog-page .catalog-row {
     width: 95%;
     padding-top: 1%;
     margin-left: 2.5%;
 }
 
-.board-catalog-page .col {
+.board-catalog-page .catalog-col {
     max-height: 350px;
     max-width: 200px;
     overflow: hidden;

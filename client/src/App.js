@@ -17,8 +17,17 @@ import FrontPage from './pages/FrontPage';
 import Navigation from './components/Navigation';
 import Register from './pages/Register';
 import Thread from './pages/Thread';
+import UserProfile from './pages/UserProfile';
 
-function ValidateShortNameRoute() {
+function ValidateUserProfileRoute() {
+  const {userId} = useParams();
+
+  // A valid user id is composed of all digits
+  if (/^\d+$/.test(userId)) return <UserProfile userId={userId} />;
+  else return <NotFound />;
+}
+
+function ValidateBoardCatalogRoute() {
   const MAX_SHORT_NAME_LENGTH = 5;
   const {shortName} = useParams();
   
@@ -26,7 +35,7 @@ function ValidateShortNameRoute() {
   else return <BoardCatalog shortName={shortName} />;
 }
 
-function ValidateThreadIdRoute() {
+function ValidateThreadRoute() {
   const {threadId} = useParams();
 
   // A valid thread id is composed of all digits
@@ -39,13 +48,14 @@ export default function App() {
     <div>
       <Navigation />
       <Routes>
-        <Route path='/become-a-mod' element={<BecomeAMod />} />
-        <Route path='/create-board' element={<CreateBoard />} />
         <Route path='/' element={<FrontPage />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/create-board' element={<CreateBoard />} />
+        <Route path='/become-a-mod' element={<BecomeAMod />} />
       
-        <Route path='/board/:shortName' element={<ValidateShortNameRoute />} />
-        <Route path='/thread/:threadId' element={<ValidateThreadIdRoute />} />
+        <Route path='/user/:userId' element={<ValidateUserProfileRoute />} />
+        <Route path='/board/:shortName' element={<ValidateBoardCatalogRoute />} />
+        <Route path='/thread/:threadId' element={<ValidateThreadRoute />} />
         
         <Route path='*' element={<NotFound />} />
       </Routes>

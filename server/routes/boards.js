@@ -50,7 +50,6 @@ router.post('/create-board', createBoardValidator, (req, res) => {
         else { // board created
             result.status = 'success';
             result.message = `Successfully created /${shortName}/!`;
-            console.log(`DEBUG: boardId: ${boardId}`); 
             res.send(result);
         }
     })
@@ -74,7 +73,6 @@ router.post('/get-board-and-catalog', (req, res) => {
         if (boardData === -1) throw new Error('No board found in getBoardData().');
         else {
             result.boardData = boardData;
-            console.log(`DEBUG: boardData.id: ${boardData.id}`);
             return BoardsModel.getCatalogThreads(boardData.id, MAX_THREADS, 'creationDate');
         }
     })
@@ -82,7 +80,6 @@ router.post('/get-board-and-catalog', (req, res) => {
         if (catalogResults < 0) throw new Error('Error with getCatalogThreads().');
         else {
             result.catalogData = catalogResults;
-            console.log(`DEBUG: catalogResults.length: ${catalogResults.length}`);
             res.send(result);
         }
     })

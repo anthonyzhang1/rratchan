@@ -107,4 +107,41 @@ const startThreadValidator = (req, res, next) => {
     } else next();
 }
 
-module.exports = {createBoardValidator, registrationValidator, startThreadValidator};
+/** Validates the post reply form on the server-side. If any of the fields are invalid,
+  * stop the post reply attempt and display an error message.
+  * If all fields are valid, call next(). */
+const postReplyValidator = (req, res, next) => {
+    const MAX_REPLY_LENGTH = 2000;
+    const MAX_ORIGINAL_FILENAME_LENGTH = 255;
+
+    let result = {status: 'error'}; // for the frontend
+    const username = req.body.username; // can be empty
+    const password = req.body.password; // can be empty
+    const reply = req.body.reply;
+    const originalFilename = req.file?.originalname; // can be empty
+
+    /** Deletes the file multer made if it exists, then send an error response. */
+    function cleanUpImageAndSendResult() {
+        if (req.file) fs.unlink(req.file.path, () => {});
+        res.send(result);
+    }
+
+    if (username.length > 0 && password.length === 0) {
+        result.message = `Error: You must enter a password if you enter a username.`;
+        cleanUpImageAndSendResult();
+    } else if (username.length === 0 && password.length > 0) {
+        result.message = `Error: You must enter a username if you enter a password.`;
+        cleanUpImageAndSendResult();
+    } else if (reply.length === 0 || reply.length > MAX_REPLY_LENGTH) {
+        result.message = `Error: Your reply must be between 1 and ${MAX_REPLY_LENGTH} characters long.`;
+        cleanUpImageAndSendResult();
+    } else if (req.file &&
+               (originalFilename.length === 0 || originalFilename.length > MAX_ORIGINAL_FILENAME_LENGTH)) {
+        result.message = `Error: Your image's filename must be between
+                          1 and ${MAX_ORIGINAL_FILENAME_LENGTH} characters long.`;
+        cleanUpImageAndSendResult();
+    } else next();
+}
+
+module.exports = {createBoardValidator, registrationValidator,
+                  startThreadValidator, postReplyValidator};

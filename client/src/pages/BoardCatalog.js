@@ -49,7 +49,7 @@ export default function BoardCatalog(props) {
     function displayCatalog() {
         return catalogData.map(thread => {
             return (
-                <Col key={thread.id}>
+                <Col className='catalog-col' key={thread.id}>
                     <BoardCatalogCard id={thread.id} subject={thread.subject} body={thread.body}
                      thumbnailPath={thread.thumbnail_path} />
                 </Col>
@@ -78,7 +78,7 @@ export default function BoardCatalog(props) {
                  passStartThreadSuccessMessage={setStartThreadSuccessMessage} />
             }
             {startThreadSuccessMessage}
-            <Row xs={7} className='g-5'>{displayCatalog()}</Row>
+            <Row xs={7} className='g-5 catalog-row'>{displayCatalog()}</Row>
         </div>
     );
 }

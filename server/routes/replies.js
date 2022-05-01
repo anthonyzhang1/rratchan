@@ -3,13 +3,12 @@ const router = express.Router();
 const sharp = require('sharp');
 const fs = require('fs');
 const fileUploader = require('../middleware/fileUploader');
-const {startThreadValidator} = require('../middleware/validation');
+const {postReplyValidator} = require('../middleware/validation');
 const RepliesModel = require('../models/Replies');
 const UsersModel = require('../models/Users');
 const CustomError = require('../helpers/CustomError');
 
-// TODO: verirfication
-router.post('/post-reply', fileUploader.single('replyImage'), (req, res) => {
+router.post('/post-reply', fileUploader.single('replyImage'), postReplyValidator, (req, res) => {
     let result = {}; // for the frontend
 
     const username = req.body.username; // optional
@@ -49,7 +48,6 @@ router.post('/post-reply', fileUploader.single('replyImage'), (req, res) => {
         else { // reply created
             result.status = 'success';
             result.message = 'Reply posted!';
-            console.log(`DEBUG: replyId: ${replyId}`);
             res.send(result);
         }
     })

@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
+import BookmarkThreadForm from '../components/BookmarkThreadForm';
 import PostReplyForm from '../components/PostReplyForm';
 
 export default function Thread(props) {
@@ -10,6 +11,8 @@ export default function Thread(props) {
     const [threadImageIsMaximized, setThreadImageIsMaximized] = useState(false);
     const [postReplyFormIsVisible, setPostReplyFormIsVisible] = useState(false);
     const [postReplySuccessMessage, setPostReplySuccessMessage] = useState(null);
+    const [bookmarkThreadFormIsVisible, setBookmarkThreadFormIsVisible] = useState(false);
+    const [bookmarkThreadSuccessMessage, setBookmarkThreadSuccessMessage] = useState(null);
 
     useEffect(() => {
         (/** Get the board data, thread data, and replies from the database. */
@@ -30,19 +33,36 @@ export default function Thread(props) {
         })();
     }, [threadId]);
 
-    /** Close the post  reply form upon successful thread creation. */
+    /** Close the bookmark thread form upon successful bookmark. */
+    useEffect(() => {
+        if (bookmarkThreadSuccessMessage) setBookmarkThreadFormIsVisible(false);
+    }, [bookmarkThreadSuccessMessage]);
+
+    /** Close the post reply form upon successful thread creation. */
     useEffect(() => {
         if (postReplySuccessMessage) setPostReplyFormIsVisible(false);
     }, [postReplySuccessMessage]);
 
+    /** Toggle whether the bookmark thread form is visible.
+      * Also clears any success messages from booking a thread. */
+    function toggleBookmarkThreadForm() {
+        setBookmarkThreadFormIsVisible(!bookmarkThreadFormIsVisible);
+        setBookmarkThreadSuccessMessage(null);
+    }
+
     /** Toggle whether the post reply form is visible.
       * Also clears any success messages from posting a reply. */
-     function togglePostReplyForm() {
+    function togglePostReplyForm() {
         setPostReplyFormIsVisible(!postReplyFormIsVisible);
         setPostReplySuccessMessage(null);
     }
 
-    function getToggleText() {
+    function getBookmarkThreadToggleText() {
+        if (bookmarkThreadFormIsVisible) return 'Close Form';
+        else return 'Bookmark';
+    }
+
+    function getPostReplyToggleText() {
         if (postReplyFormIsVisible) return 'Close Form';
         else return 'Post a Reply';
     }
@@ -66,10 +86,23 @@ export default function Thread(props) {
     else return (
         <div className='thread-page'>
             <h2 className='page-title'>/{threadData.short_name}/ - {threadData.board_name}</h2>
+            <div className='thread-nav'>
+                [<Link to={`/board/${threadData.short_name}`} className='clickable'>Catalog</Link>]
+                <div className='thread-nav-right'>
+                    [<Link to='#' className='clickable thread-bookmark' onClick={toggleBookmarkThreadForm}>
+                        {getBookmarkThreadToggleText()}
+                    </Link>]
+                    {bookmarkThreadSuccessMessage}
+                    {bookmarkThreadFormIsVisible &&
+                        <BookmarkThreadForm threadId={threadId}
+                         passBookmarkThreadSuccessMessage={setBookmarkThreadSuccessMessage} />
+                    }
+                </div>
+            </div>
             <hr className='board-data-divider' />
             <Container className='thread-content'>
                 <Row>
-                    <p className='thread-image-original-filename'>Filename: {threadData.orig_filename}</p>
+                    <p className='thread-image-original-filename'>File: {threadData.orig_filename}</p>
                     {getThreadImageHTML()}
                     <Col className='thread-heading-col'>
                         <p className='thread-heading'>
@@ -86,7 +119,9 @@ export default function Thread(props) {
 
             <hr className='last-reply-divider' />
             <h4 className='clickable-brackets'>
-                [<Link to='#' className='clickable' onClick={togglePostReplyForm}>{getToggleText()}</Link>]
+                [<Link to='#' className='clickable' onClick={togglePostReplyForm}>
+                    {getPostReplyToggleText()}
+                </Link>]
             </h4>
             {postReplySuccessMessage}
             {postReplyFormIsVisible &&

@@ -1,3 +1,13 @@
+.thread-page .thread-nav {
+    text-align: left;
+    padding-left: 0.5%;
+    margin-bottom: 0%;
+} .thread-page .thread-nav-right {
+    float: right;
+    padding-right: 0.5%;
+}
+
+.thread-page .board-data-divider {margin-top: 0.25%;}
 .thread-page .board-data-divider, .thread-page .last-reply-divider {
     width: 99%;
     margin-left: 0.5%;
@@ -6,8 +16,8 @@
 
 .thread-page .thread-content {margin-left: 1%;}
 .thread-page .thread-content, .thread-page .thread-content * {
-    padding-left: 0;
     text-align: left;
+    padding-left: 0;
 }
 
 .thread-page .minimized-thread-image-col {padding-right: 1%;}
@@ -18,10 +28,24 @@
     max-width: 500px;
 } .thread-page .minimized-thread-image:hover {cursor: pointer;}
 
-.thread-page .maximized-thread-image {margin-bottom: 0.5%;}
-.thread-page .maximized-thread-image:hover {cursor: pointer;}
+.thread-page .maximized-thread-image {
+    margin-bottom: 0.5%;
+} .thread-page .maximized-thread-image:hover {cursor: pointer;}
 
 .thread-page .thread-subject {color: #0f0c5d;}
 .thread-page .username {color: #117743;}
 
 .thread-page .clickable-brackets {margin-bottom: 0.5%;}
+
+.thread-page .post-reply-form {
+    margin-left: 30%;
+    margin-right: 30%;
+} .thread-page .post-reply-form .form-control {
+    margin-left: 12.5%;
+    width: 75%;
+} .thread-page .post-reply-form #post-reply-form-reply {
+    margin-left: 5%;
+    width: 90%;
+}
+
+.thread-page .btn {margin-bottom: 2.5%;}

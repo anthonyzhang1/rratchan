@@ -1,6 +1,16 @@
 const db = require('../database/dbPool');
 const UsersModel = {};
 
+/** Returns the user's id with the given username. If no matches, return -1. */
+UsersModel.getIdWithUsername = (username) => {
+    return db.query('SELECT id FROM users WHERE username=?;', [username])
+    .then(([results]) => {
+        if (results.length === 1) return results[0].id;
+        else return -1;
+    })
+    .catch(err => Promise.reject(err));
+}
+
 /** Returns true if the username has been taken. */
 UsersModel.usernameExists = (username) => {
     return db.query('SELECT id FROM users WHERE username=?;', [username])
