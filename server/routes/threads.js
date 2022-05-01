@@ -1,27 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const uuid = require('uuid');
 const sharp = require('sharp');
 const fs = require('fs');
+const fileUploader = require('../middleware/fileUploader');
 const {startThreadValidator} = require('../middleware/validation');
 const ThreadsModel = require('../models/Threads');
 const UsersModel = require('../models/Users');
 const CustomError = require('../helpers/CustomError');
 
-const storage = multer.diskStorage({
-    destination: function(_, _, cb) { cb(null, 'public/uploads'); },
-    filename: function(_, file, cb) {
-        const fileExtension = file.mimetype.split('/')[1];
-        cb(null, `${uuid.v4()}.${fileExtension}`);
-    }
-});
-
-const upload = multer({ storage: storage });
-
 /** Creates a thread. */
-router.post('/start-thread', upload.single('image'), startThreadValidator, (req, res) => {
+router.post('/start-thread', fileUploader.single('threadImage'), startThreadValidator, (req, res) => {
     let result = {}; // for the frontend
+
     const username = req.body.username; // can be empty
     const password = req.body.password; // can be empty
     const subject = req.body.subject; // can be empty
@@ -32,11 +22,7 @@ router.post('/start-thread', upload.single('image'), startThreadValidator, (req,
     const boardId = req.body.boardId;
 
     sharp(imagePath) // create a thumbnail of the image to minimize data sent
-    .resize({
-        width: 250,
-        height: null, // auto scale
-        fit: 'inside'
-    })
+    .resize(250, 250, { fit: 'inside' })
     .toFile(thumbnailPath)
     .then(() => {
         if (username.length > 0 && password.length > 0) {
@@ -44,7 +30,6 @@ router.post('/start-thread', upload.single('image'), startThreadValidator, (req,
         } else return ''; // anonymous thread author
     })
     .then(userId => {
-        console.log(userId); // debug
         if (userId < 0) throw new CustomError('Error: Invalid username and/or password.');
         else { // create the thread
             return ThreadsModel.createThread(subject, body, imagePath, thumbnailPath,
@@ -52,7 +37,7 @@ router.post('/start-thread', upload.single('image'), startThreadValidator, (req,
         }
     })
     .then(threadId => {
-        if (threadId < 0) return new Error('Error with createThread().');
+        if (threadId < 0) throw new Error('Error with createThread().');
         else { // thread created
             result.status = 'success';
             result.message = 'Thread created!';
@@ -73,6 +58,27 @@ router.post('/start-thread', upload.single('image'), startThreadValidator, (req,
         console.log(err);
         res.send(result);
     });
+});
+
+router.post('/get-thread', (req, res) => {
+    let result = {}; // for the frontend
+    const MAX_REPLIES = 100; // maximum number of replies to get from the database
+    const threadId = req.body.threadId;
+
+    ThreadsModel.getThreadData(threadId)
+    .then(threadData => {
+        if (threadData === -1) throw new Error('No thread found in getThreadData().');
+        else {
+            result.threadData = threadData;
+            console.log(`DEBUG: threadData.short_name: ${threadData.short_name}`);
+            res.send(result);
+        }
+    })
+    .catch(err => {
+        result.status = 'error';
+        console.log(err);
+        res.send(result);
+    })
 });
 
 module.exports = router;

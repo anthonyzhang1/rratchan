@@ -12,6 +12,7 @@ app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/api/boards', require('./routes/boards'));
+app.use('/api/replies', require('./routes/replies'));
 app.use('/api/threads', require('./routes/threads'));
 app.use('/api/users', require('./routes/users'));
 

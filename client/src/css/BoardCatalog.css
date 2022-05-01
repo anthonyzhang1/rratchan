@@ -29,6 +29,7 @@
 }
 
 .board-catalog-page .card-body {
+    font-family: arial;
     font-size: 10pt;
     padding: 0%;
 }

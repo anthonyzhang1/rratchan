@@ -1,0 +1,27 @@
+.thread-page .board-data-divider, .thread-page .last-reply-divider {
+    width: 99%;
+    margin-left: 0.5%;
+    margin-bottom: 0.25%;
+}
+
+.thread-page .thread-content {margin-left: 1%;}
+.thread-page .thread-content, .thread-page .thread-content * {
+    padding-left: 0;
+    text-align: left;
+}
+
+.thread-page .minimized-thread-image-col {padding-right: 1%;}
+.thread-page .thread-image-original-filename {margin-bottom: 0.25%;}
+
+.thread-page .minimized-thread-image {
+    max-height: 400px;
+    max-width: 500px;
+} .thread-page .minimized-thread-image:hover {cursor: pointer;}
+
+.thread-page .maximized-thread-image {margin-bottom: 0.5%;}
+.thread-page .maximized-thread-image:hover {cursor: pointer;}
+
+.thread-page .thread-subject {color: #0f0c5d;}
+.thread-page .username {color: #117743;}
+
+.thread-page .clickable-brackets {margin-bottom: 0.5%;}

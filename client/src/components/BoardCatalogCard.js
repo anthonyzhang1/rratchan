@@ -5,8 +5,8 @@ export default function BoardCatalogCard(props) {
     return (
         <Card>
             <Card.Body>
-                <Link to={`./${props.id}`}>
-                    <img src={'/' + props.thumbnailPath} />
+                <Link to={`/thread/${props.id}`}>
+                    <img src={'/' + props.thumbnailPath} alt='Thread thumbnail' />
                 </Link>
                 <Card.Text>
                     <strong>{props.subject}</strong>{props.subject && props.body && ':'} {props.body}

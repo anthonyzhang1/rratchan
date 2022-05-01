@@ -1,17 +1,17 @@
 import {useEffect, useState, useRef} from 'react';
 import {Button, Col, Form, Row} from 'react-bootstrap';
 
-export default function StartThreadForm(props) {
+export default function PostReplyForm(props) {
+    const {threadId, passPostReplySuccessMessage} = props;
     const fileInput = useRef();
-
+    
     const [form, setForm] = useState({
         username: '',
         password: '',
-        subject: '',
-        body: '',
-        boardId: props.boardId
+        reply: '',
+        threadId: threadId
     });
-    const [threadImage, setThreadImage] = useState(null);
+    const [replyImage, setReplyImage] = useState(null);
     const [result, setResult] = useState(null);
 
     /** Update the form's state. */
@@ -28,9 +28,9 @@ export default function StartThreadForm(props) {
         
         const formData = new FormData();
         for (const key in form) formData.append(key, form[key]);
-        formData.append('threadImage', threadImage);
+        if (replyImage) formData.append('replyImage', replyImage);
 
-        await fetch('/api/threads/start-thread', {
+        await fetch('/api/replies/post-reply', {
             method: 'POST',
             body: formData
         })
@@ -42,25 +42,25 @@ export default function StartThreadForm(props) {
     useEffect(() => {
         // Reset the form after successful submission
         if (result?.status === 'success') {
-            setForm({username: '', password: '', subject: '', body: '', boardId: props.boardId});
-            setThreadImage(null);
+            setForm({username: '', password: '', reply: '', threadId: threadId});
+            setReplyImage(null);
             fileInput.current.value = '';
-            props.passStartThreadSuccessMessage(<h3>{result.message}</h3>);
+            passPostReplySuccessMessage(<h3>{result.message}</h3>);
         }
-    }, [result, props.boardId]);
+    }, [result, threadId, passPostReplySuccessMessage]);
 
     return (
-        <div className='start-thread-form-component'>
+        <div className='post-reply-form-component'>
             <h3>{result?.message}</h3>
             <Form onSubmit={onSubmit}>
-                <Form.Group as={Row} controlId='start-thread-form-username'>
+                <Form.Group as={Row} controlId='post-reply-form-username'>
                     <Form.Label column='sm'>Username</Form.Label>
                     <Col sm={10}>
                         <Form.Control size='sm' type='text' placeholder='Username'
                          value={form.username} onChange={e => updateForm({username: e.target.value})} />
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} className='mb-1' controlId='start-thread-form-password'>
+                <Form.Group as={Row} className='mb-1' controlId='post-reply-form-password'>
                     <Form.Label column='sm'>Password</Form.Label>
                     <Col sm={10}>
                         <Form.Control size='sm' type='password' placeholder='Password'
@@ -68,34 +68,25 @@ export default function StartThreadForm(props) {
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-1' controlId='start-thread-form-image'>
-                    <Form.Label column='sm'>Image (required)</Form.Label>
+                <Form.Group as={Row} className='mb-1' controlId='post-reply-form-image'>
+                    <Form.Label column='sm'>Image</Form.Label>
                     <Col sm={10}>
-                        <Form.Control required size='sm' type='file' name='threadImage'
-                         ref={fileInput} onChange={e => setThreadImage(e.target.files[0])} />
+                        <Form.Control size='sm' type='file' name='replyImage' ref={fileInput}
+                         onChange={e => setReplyImage(e.target.files[0])} />
                         <Form.Text>File must be an image, e.g. a JPEG or PNG.</Form.Text>
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className='mb-1' controlId='start-thread-form-subject'>
-                    <Form.Label column='sm' md={2}>Subject</Form.Label>
+                <Form.Group as={Row} className='mb-1' controlId='post-reply-form-reply'>
+                    <Form.Label column='sm' md={2}>Reply (required)</Form.Label>
                     <Col sm={10}>
-                        <Form.Control size='sm' as='textarea' rows={2} placeholder='Thread Subject'
-                         value={form.subject} onChange={e => updateForm({subject: e.target.value})} />
-                         <Form.Text>Max 255 characters.</Form.Text>
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className='mb-1' controlId='start-thread-form-body'>
-                    <Form.Label column='sm' md={2}>Body</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control size='sm' as='textarea' rows={5} placeholder='Thread Body'
-                         value={form.body} onChange={e => updateForm({body: e.target.value})} />
+                        <Form.Control required size='sm' as='textarea' rows={5} placeholder='Reply'
+                         value={form.reply} onChange={e => updateForm({reply: e.target.value})} />
                          <Form.Text>Max 2000 characters.</Form.Text>
                     </Col>
                 </Form.Group>
 
-                <Button variant='primary' type='submit'>Start Thread</Button>
+                <Button variant='primary' type='submit'>Post Reply</Button>
             </Form>
         </div>
     );

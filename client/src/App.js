@@ -7,6 +7,7 @@ import './css/BecomeAMod.css';
 import './css/BoardCatalog.css';
 import './css/CreateBoard.css';
 import './css/FrontPage.css';
+import './css/Thread.css';
 
 import NotFound from './pages/NotFound';
 import BecomeAMod from './pages/BecomeAMod';
@@ -17,27 +18,20 @@ import Navigation from './components/Navigation';
 import Register from './pages/Register';
 import Thread from './pages/Thread';
 
-function isValidShortName(shortName) {
-  const MAX_SHORT_NAME_LENGTH = 5;
-  return shortName.length <= MAX_SHORT_NAME_LENGTH;
-}
-
-/** Returns true if and only if threadId is composed of all digits. */
-function isValidThreadId(threadId) { return /^\d+$/.test(threadId); }
-
 function ValidateShortNameRoute() {
+  const MAX_SHORT_NAME_LENGTH = 5;
   const {shortName} = useParams();
   
-  if (!isValidShortName(shortName)) return <NotFound />;
+  if (shortName.length > MAX_SHORT_NAME_LENGTH) return <NotFound />;
   else return <BoardCatalog shortName={shortName} />;
 }
 
 function ValidateThreadIdRoute() {
-  const {shortName, threadId} = useParams();
+  const {threadId} = useParams();
 
-  if (!isValidShortName(shortName)) return <NotFound />;
-  else if (!isValidThreadId(threadId)) return <NotFound />;
-  else return <Thread shortName={shortName} threadId={threadId} />;
+  // A valid thread id is composed of all digits
+  if (/^\d+$/.test(threadId)) return <Thread threadId={threadId} />;
+  else return <NotFound />;
 }
 
 export default function App() {
@@ -51,7 +45,7 @@ export default function App() {
         <Route path='/register' element={<Register />} />
       
         <Route path='/board/:shortName' element={<ValidateShortNameRoute />} />
-        <Route path='/board/:shortName/:threadId' element={<ValidateThreadIdRoute />} />
+        <Route path='/thread/:threadId' element={<ValidateThreadIdRoute />} />
         
         <Route path='*' element={<NotFound />} />
       </Routes>

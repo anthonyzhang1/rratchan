@@ -49,7 +49,7 @@ CREATE TABLE threads (
 
 CREATE TABLE replies (
     id             int NOT NULL UNIQUE AUTO_INCREMENT,
-    reply          varchar(5000) NOT NULL,
+    reply          varchar(2000) NOT NULL,
     image_path     varchar(500),
     thumbnail_path varchar(500),
     orig_filename  varchar(255),
