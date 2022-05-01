@@ -36,7 +36,6 @@ CREATE TABLE threads (
     thumbnail_path varchar(500) NOT NULL,
     orig_filename  varchar(255) NOT NULL,
     created_at     datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    archived       boolean NOT NULL DEFAULT false,
     board_id       int NOT NULL,
     user_id        int,
     PRIMARY KEY (id),

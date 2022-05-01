@@ -42,6 +42,38 @@ BoardsModel.getBoardData = (short_name) => {
     .catch(err => Promise.reject(err));
 }
 
+/** Gets what is needed to show the `limit` recent threads in a board's catalog.
+  * The order in which the threads are returned is determined by `sortBy`.
+  * `sortBy = 'creationDate'`: Gets the most recent `limit` threads by creation date.
+  * `sortBy = 'lastReplyDate'`: Gets the msot recent `limit` threads by last reply date.
+  * If `sortBy` is invalid, `limit` <= 0, or the query fails, then return -1. */
+BoardsModel.getCatalogThreads = (board_id, limit, sortBy) => {
+    let query = '';
+
+    if (limit <= 0) {
+        console.log('getCatalogThreads() Error: limit <= 0.');
+        return -1;
+    } else if (sortBy === 'creationDate') {
+        query = `SELECT id, subject, body, thumbnail_path
+                 FROM threads WHERE board_id=?
+                 ORDER BY created_at DESC
+                 LIMIT ?;`;
+    } else if (sortBy === 'lastReplyDate') {
+        // TODO
+        return -1;
+    } else { // invalid `sortBy` argument
+        console.log('getCatalogThreads() Error: invalid sortBy argument.');
+        return -1;
+    }
+
+    return db.query(query, [board_id, limit])
+    .then(([results]) => {
+        if (results) return results;
+        else return -1;
+    })
+    .catch(err => Promise.reject(err));
+}
+
 /** Creates a board with the given arguments. The arguments should be validated first.
   * description is nullable.
   * On success, return the board's id. On failure, return -1. */

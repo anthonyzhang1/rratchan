@@ -1,16 +1,19 @@
 import {useEffect, useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
+import {Row, Col} from 'react-bootstrap';
+import BoardCatalogCard from '../components/BoardCatalogCard';
 import StartThreadForm from '../components/StartThreadForm';
 
 export default function BoardCatalog(props) {
     const shortName = props.shortName;
+    // determines the order of the catalog's threads
+    const [catalogSortBy, setCatalogSortBy] = useState('threadCreationDate');
     const [boardData, setBoardData] = useState([]); // first query
-    const [catalog, setCatalog] = useState([]); // second query
+    const [catalogData, setCatalogData] = useState([]); // second query
     const [startThreadFormIsVisible, setStartThreadFormIsVisible] = useState(false);
     const [startThreadSuccessMessage, setStartThreadSuccessMessage] = useState(null);
 
     useEffect(() => {
-        
         (/** Get the board data and recent threads from the database. */
         function displayCatalog() {
             fetch('/api/boards/get-catalog', {
@@ -21,7 +24,10 @@ export default function BoardCatalog(props) {
             .then(res => res.json())
             .then(combinedResult => {
                 if (combinedResult.status) setBoardData(combinedResult.status);
-                else setBoardData(combinedResult.boardData);
+                else {
+                    setBoardData(combinedResult.boardData);
+                    setCatalogData(combinedResult.catalogData)
+                }
             })
             .catch(console.log());
         })();
@@ -37,6 +43,17 @@ export default function BoardCatalog(props) {
     function toggleStartThreadForm() {
         setStartThreadFormIsVisible(!startThreadFormIsVisible);
         setStartThreadSuccessMessage(null);
+    }
+
+    function displayCatalog() {
+        return catalogData.map(thread => {
+            return (
+                <Col key={thread.id}>
+                    <BoardCatalogCard id={thread.id} subject={thread.subject} body={thread.body}
+                     thumbnailPath={thread.thumbnail_path} />
+                </Col>
+            );
+        });
     }
 
     let toggleText;
@@ -56,10 +73,11 @@ export default function BoardCatalog(props) {
             <hr className='board-data-divider' />
             <h4>[<Link to='#' className='clickable' onClick={toggleStartThreadForm}>{toggleText}</Link>]</h4>
             {startThreadFormIsVisible &&
-             <StartThreadForm boardId={boardData.id}
-              passStartThreadSuccessMessage={setStartThreadSuccessMessage} />
+                <StartThreadForm boardId={boardData.id}
+                 passStartThreadSuccessMessage={setStartThreadSuccessMessage} />
             }
             {startThreadSuccessMessage}
+            <Row xs={7} className='g-5'>{displayCatalog()}</Row>
         </div>
     );
 }

@@ -32,7 +32,11 @@ router.post('/start-thread', upload.single('image'), startThreadValidator, (req,
     const boardId = req.body.boardId;
 
     sharp(imagePath) // create a thumbnail of the image to minimize data sent
-    .resize(200)
+    .resize({
+        width: 250,
+        height: null, // auto scale
+        fit: 'inside'
+    })
     .toFile(thumbnailPath)
     .then(() => {
         if (username.length > 0 && password.length > 0) {
