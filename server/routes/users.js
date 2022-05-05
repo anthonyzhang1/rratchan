@@ -10,7 +10,7 @@ router.post('/search', (req, res) => {
 
     UsersModel.getIdWithUsername(username)
     .then(userId => {
-        if (userId < 0) throw new CustomError(`Error: There is no user with the username '${username}'.`);
+        if (userId < 0) throw new CustomError(`There is no user with the username '${username}'.`);
         else {
             result.status = 'success';
             result.userId = userId;

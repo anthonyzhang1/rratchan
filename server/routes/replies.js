@@ -24,7 +24,7 @@ router.post('/post-reply', fileUploader.single('replyImage'), postReplyValidator
     function createThumbnail(file) {
         if (file) {
             return sharp(imagePath)
-            .resize(250, 250, { fit: 'inside' })
+            .resize(175, 175, { fit: 'inside' })
             .toFile(thumbnailPath)
             .catch(err => Promise.reject(err));
         } else return Promise.resolve();

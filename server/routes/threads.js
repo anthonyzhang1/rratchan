@@ -6,6 +6,7 @@ const fileUploader = require('../middleware/fileUploader');
 const {startThreadValidator} = require('../middleware/validation');
 const ThreadsModel = require('../models/Threads');
 const UsersModel = require('../models/Users');
+const RepliesModel = require('../models/Replies');
 const CustomError = require('../helpers/CustomError');
 
 /** Creates a thread. */
@@ -61,7 +62,7 @@ router.post('/start-thread', fileUploader.single('threadImage'), startThreadVali
 
 router.post('/get-thread', (req, res) => {
     let result = {}; // for the frontend
-    const MAX_REPLIES = 100; // maximum number of replies to get from the database
+    const MAX_REPLIES = 7; // maximum number of replies to get from the database
     const threadId = req.body.threadId;
 
     ThreadsModel.getThreadData(threadId)
@@ -69,6 +70,13 @@ router.post('/get-thread', (req, res) => {
         if (threadData === -1) throw new Error('No thread found in getThreadData().');
         else {
             result.threadData = threadData;
+            return RepliesModel.getRepliesToThread(threadId, MAX_REPLIES);
+        }
+    })
+    .then(replyData => {
+        if (replyData < 0) throw new Error('Error with getRepliesToThread().');
+        else {
+            result.replyData = replyData;
             res.send(result);
         }
     })
@@ -76,7 +84,7 @@ router.post('/get-thread', (req, res) => {
         result.status = 'error';
         console.log(err);
         res.send(result);
-    })
+    });
 });
 
 module.exports = router;

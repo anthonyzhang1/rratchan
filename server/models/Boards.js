@@ -42,16 +42,16 @@ BoardsModel.getBoardData = (short_name) => {
     .catch(err => Promise.reject(err));
 }
 
-/** Gets what is needed to show the `limit` recent threads in a board's catalog.
+/** Gets what is needed to show the `maxThreads` recent threads in a board's catalog.
   * The order in which the threads are returned is determined by `sortBy`.
-  * `sortBy = 'creationDate'`: Gets the most recent `limit` threads by creation date.
-  * `sortBy = 'lastReplyDate'`: Gets the msot recent `limit` threads by last reply date.
-  * If `sortBy` is invalid, `limit` <= 0, or the query fails, then return -1. */
-BoardsModel.getCatalogThreads = (board_id, limit, sortBy) => {
+  * `sortBy = 'creationDate'`: Gets the most recent `maxThreads` threads by creation date.
+  * `sortBy = 'lastReplyDate'`: Gets the msot recent `maxThreads` threads by last reply date.
+  * If `sortBy` is invalid, `maxThreads` < 0, or the query fails, then return -1. */
+BoardsModel.getCatalogThreads = (board_id, maxThreads, sortBy) => {
     let query = '';
 
-    if (limit <= 0) {
-        console.log('getCatalogThreads() Error: limit <= 0.');
+    if (maxThreads < 0) {
+        console.log('getCatalogThreads() Error: maxThreads < 0.');
         return -1;
     } else if (sortBy === 'creationDate') {
         query = `SELECT id, subject, body, thumbnail_path
@@ -66,7 +66,7 @@ BoardsModel.getCatalogThreads = (board_id, limit, sortBy) => {
         return -1;
     }
 
-    return db.query(query, [board_id, limit])
+    return db.query(query, [board_id, maxThreads])
     .then(([results]) => {
         if (results) return results;
         else return -1;

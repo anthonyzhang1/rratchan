@@ -3,12 +3,16 @@ import {Link, Navigate} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import BookmarkThreadForm from '../components/BookmarkThreadForm';
 import PostReplyForm from '../components/PostReplyForm';
+import ReplyRow from '../components/ReplyRow';
 
 export default function Thread(props) {
-    const threadId = props.threadId;
+    const {threadId} = props;
 
     const [threadData, setThreadData] = useState([]); // first query
+    const [replyData, setReplyData] = useState([]); // second query
     const [threadImageIsMaximized, setThreadImageIsMaximized] = useState(false);
+    const [replyImageIsMaximized, setReplyImageIsMaximized] = useState(null);
+
     const [postReplyFormIsVisible, setPostReplyFormIsVisible] = useState(false);
     const [postReplySuccessMessage, setPostReplySuccessMessage] = useState(null);
     const [bookmarkThreadFormIsVisible, setBookmarkThreadFormIsVisible] = useState(false);
@@ -27,6 +31,8 @@ export default function Thread(props) {
                 if (combinedResult.status) setThreadData(combinedResult.status);
                 else {
                     setThreadData(combinedResult.threadData);
+                    setReplyData(combinedResult.replyData);
+                    setReplyImageIsMaximized(new Array(combinedResult.replyData.length).fill(false));
                 }
             })
             .catch(console.log());
@@ -67,22 +73,33 @@ export default function Thread(props) {
         else return 'Post a Reply';
     }
 
-    function getThreadImageHTML() {
-        if (threadImageIsMaximized) {
-            return <img src={'/' + threadData.image_path} className='maximized-thread-image'
-            alt='Thread attachment' onClick={() => setThreadImageIsMaximized(!threadImageIsMaximized)} />
-        } else {
+    // function getThreadImageHTML() {
+    //     if (threadImageIsMaximized) {
+    //         return <img src={'/' + threadData.image_path} className='maximized-thread-image'
+    //                 alt='Thread attachment' onClick={() => setThreadImageIsMaximized(!threadImageIsMaximized)} />;
+    //     } else {
+    //         return <img src={'/' + threadData.image_path} className='minimized-thread-image'
+    //                 alt='Thread attachment' onClick={() => setThreadImageIsMaximized(!threadImageIsMaximized)} />;
+    //     }
+    // }
+
+    function displayReplies() {
+        return replyData.map((reply, index) => {
             return (
-                <Col md='auto' className='minimized-thread-image-col'>
-                    <img src={'/' + threadData.image_path} className='minimized-thread-image'
-                     alt='Thread attachment' onClick={() => setThreadImageIsMaximized(!threadImageIsMaximized)} />
-                </Col>
+                <ReplyRow key={index} index={index} id={reply.id} reply={reply.reply}
+                 imagePath={reply.image_path} thumbnailPath={reply.thumbnail_path}
+                 origFilename={reply.orig_filename} createdAt={reply.created_at}
+                 username={reply.username} replyImageIsMaximized={replyImageIsMaximized}
+                 setReplyImageIsMaximized={setReplyImageIsMaximized} />
             );
-        }
+        })
     }
 
+    console.log(replyData);
+
     if (threadData === 'error') return <Navigate to='/404' />;
-    else if (!threadData.short_name) return <div /> // wait for the fetch to finish before rendering
+    // wait for the fetch to finish before rendering
+    else if (!threadData.short_name || !replyImageIsMaximized) return <div />;
     else return (
         <div className='thread-page'>
             <h2 className='page-title'>/{threadData.short_name}/ - {threadData.board_name}</h2>
@@ -102,19 +119,24 @@ export default function Thread(props) {
             <hr className='board-data-divider' />
             <Container className='thread-content'>
                 <Row>
-                    <p className='thread-image-original-filename'>File: {threadData.orig_filename}</p>
-                    {getThreadImageHTML()}
+                    <p className='thread-image-filename'>File: {threadData.orig_filename}</p>
+                    <Col md='auto'>
+                        <img src={'/' + threadData.image_path} alt='Thread attachment'
+                         className={threadImageIsMaximized ? 'maximized-thread-image' : 'minimized-thread-image'}
+                         onClick={() => setThreadImageIsMaximized(!threadImageIsMaximized)} />
+                    </Col>
                     <Col className='thread-heading-col'>
                         <p className='thread-heading'>
                             <strong className='thread-subject'>{threadData.subject}</strong>&nbsp;
                             <strong className='username'>{threadData.username ?
                                                           threadData.username : 'Anonymous'}</strong>&nbsp;
-                            {new Date(threadData.created_at).toLocaleString('en-US', {hour12: false})}&nbsp;
+                            {new Date(threadData.created_at).toLocaleString('en-US', {hourCycle: 'h23'})}&nbsp;
                             TID: {threadId}
                         </p>
                         <p className='thread-body'>{threadData.body}</p>
                     </Col>
                 </Row>
+                {displayReplies()}
             </Container>
 
             <hr className='last-reply-divider' />

@@ -1,3 +1,5 @@
+.thread-page .row {margin: auto;}
+
 .thread-page .thread-nav {
     text-align: left;
     padding-left: 0.5%;
@@ -14,26 +16,60 @@
     margin-bottom: 0.25%;
 }
 
-.thread-page .thread-content {margin-left: 1%;}
+.thread-page .thread-content {margin-left: 1.5%;}
 .thread-page .thread-content, .thread-page .thread-content * {
+    font-family: arial;
+    font-size: 10pt;
     text-align: left;
-    padding-left: 0;
+    padding: 0;
 }
 
-.thread-page .minimized-thread-image-col {padding-right: 1%;}
-.thread-page .thread-image-original-filename {margin-bottom: 0.25%;}
+.thread-page .thread-image-filename {
+    margin-left: -1.25%;
+    margin-bottom: 0.25%;
+}
 
-.thread-page .minimized-thread-image {
-    max-height: 400px;
-    max-width: 500px;
-} .thread-page .minimized-thread-image:hover {cursor: pointer;}
-
-.thread-page .maximized-thread-image {
-    margin-bottom: 0.5%;
-} .thread-page .maximized-thread-image:hover {cursor: pointer;}
+.thread-page .minimized-thread-image:hover, .thread-page .maximized-thread-image:hover {cursor: pointer;}
+.thread-page .minimized-thread-image, .thread-page .maximized-thread-image {
+    margin-bottom: 1rem;
+    margin-right: 0.5rem;
+} .thread-page .minimized-thread-image {
+    max-height: 300px;
+    max-width: 400px;
+}
 
 .thread-page .thread-subject {color: #0f0c5d;}
 .thread-page .username {color: #117743;}
+
+.thread-page .reply-row, .thread-page .reply-row * {background-color: #d6daf0;}
+.thread-page .reply-row {
+    width: 65%;
+    margin-left: 0%;
+    margin-bottom: 0.25rem;
+} .thread-page .reply-row * {margin-bottom: 0%;}
+
+
+.thread-page .reply-heading {
+    padding-top: 0.05rem;
+    padding-left: 0.5rem;
+}
+
+.thread-page .reply-filename {
+    margin-top: 0%;
+    margin-bottom: 0.25%;
+    padding-left: 0.5rem;
+}
+
+.thread-page .minimized-reply-image:hover, .thread-page .maximized-reply-image:hover {cursor: pointer;}
+.thread-page .minimized-reply-image, .thread-page .maximized-reply-image {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+} .thread-page .minimized-reply-image {
+    max-height: 125px;
+    max-width: 125px;
+}
+
+.thread-page .reply-body {padding: 0.25rem 1rem 0.5rem 1rem;}
 
 .thread-page .clickable-brackets {margin-bottom: 0.5%;}
 
