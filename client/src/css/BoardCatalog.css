@@ -16,31 +16,30 @@
 } .board-catalog-page #start-thread-form-subject, .board-catalog-page #start-thread-form-body {
     margin-left: 12.5%;
     width: 75%;
+} .board-catalog-page .start-thread-form-component {width: 98%; margin-left: 1%;}
+.board-catalog-page .btn {margin-bottom: 1%;}
+
+.board-catalog-page .start-thread-divider {
+    width: 95%;
+    margin-left: 2.5%;
 }
 
-.board-catalog-page .start-thread-form-component {width: 98%; margin-left: 1%;}
-.board-catalog-page .btn {margin-bottom: 1%;}
 .board-catalog-page .catalog-row {
     width: 95%;
     padding-top: 1%;
     margin-left: 2.5%;
-}
-
-.board-catalog-page .catalog-col {
+} .board-catalog-page .catalog-col {
     max-height: 350px;
     max-width: 200px;
     overflow: hidden;
 }
 
 .board-catalog-page .card {border: none;}
-
 .board-catalog-page img {
     max-height: 150px;
     max-width: 150px;
     margin-bottom: 2%;
-}
-
-.board-catalog-page .card-body {
+} .board-catalog-page .card-body {
     font-family: arial;
     font-size: 10pt;
     padding: 0%;

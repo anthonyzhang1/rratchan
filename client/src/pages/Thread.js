@@ -107,13 +107,13 @@ export default function Thread(props) {
             <hr className='board-data-divider' />
             <Container className='thread-content'>
                 <Row>
-                    <p className='thread-image-filename'>File: {threadData.orig_filename}</p>
+                    <p className='thread-image-filename'>Filename: {threadData.orig_filename}</p>
                     <Col md='auto'>
                         <img src={'/' + threadData.image_path} alt='Thread attachment'
                          className={threadImageIsMaximized ? 'maximized-thread-image' : 'minimized-thread-image'}
                          onClick={() => setThreadImageIsMaximized(!threadImageIsMaximized)} />
                     </Col>
-                    <Col className='thread-heading-col'>
+                    <Col className='thread-content-col'>
                         <p className='thread-heading'>
                             <strong className='thread-subject'>{threadData.subject}</strong>
                             {threadData.subject && '\u00A0'}

@@ -28,7 +28,7 @@ export default function ReplyRow(props) {
                 RID: {id}
             </p>
 
-            {imagePath && <p className='reply-filename'>File: {origFilename}</p>}
+            {imagePath && <p className='reply-filename'>Filename: {origFilename}</p>}
             {imagePath && <Col md='auto'>{getReplyImageHTML()}</Col>}
             <Col md='auto'><p className='reply-body'>{reply}</p></Col>
         </Row>

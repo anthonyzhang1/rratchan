@@ -45,7 +45,7 @@ BoardsModel.getBoardData = (short_name) => {
 /** Gets what is needed to show the `maxThreads` recent threads in a board's catalog.
   * The order in which the threads are returned is determined by `sortBy`.
   * `sortBy = 'creationDate'`: Gets the most recent `maxThreads` threads by creation date.
-  * `sortBy = 'lastReplyDate'`: Gets the msot recent `maxThreads` threads by last reply date.
+  * `sortBy = 'lastReply'`: Gets the most recent `maxThreads` threads by last reply date.
   * If `sortBy` is invalid, `maxThreads` < 0, or the query fails, then return -1. */
 BoardsModel.getCatalogThreads = (board_id, maxThreads, sortBy) => {
     let query = '';
@@ -53,15 +53,20 @@ BoardsModel.getCatalogThreads = (board_id, maxThreads, sortBy) => {
     if (maxThreads < 0) {
         console.log('getCatalogThreads() Error: maxThreads < 0.');
         return -1;
+    } else if (sortBy === 'lastReply') {
+        query = `SELECT T.id, T.subject, T.body, T.thumbnail_path, (
+                    SELECT MAX(R.created_at) FROM replies R
+                    WHERE R.thread_id = T.id
+                 ) AS last_reply_date
+                 FROM threads T WHERE board_id = ?
+                 ORDER BY COALESCE(last_reply_date, T.created_at) DESC
+                 LIMIT ?;`;
     } else if (sortBy === 'creationDate') {
         query = `SELECT id, subject, body, thumbnail_path
-                 FROM threads WHERE board_id=?
+                 FROM threads WHERE board_id = ?
                  ORDER BY created_at DESC
                  LIMIT ?;`;
-    } else if (sortBy === 'lastReplyDate') {
-        // TODO
-        return -1;
-    } else { // invalid `sortBy` argument
+    }  else { // invalid `sortBy` argument
         console.log('getCatalogThreads() Error: invalid sortBy argument.');
         return -1;
     }

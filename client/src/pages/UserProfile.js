@@ -57,7 +57,7 @@ export default function UserProfile(props) {
             <h1 className='page-title'>{data.username}'s Profile</h1>
             <hr className='username-divider' />
             <p>Threads Started: {data.threadCount}</p>
-            {data.threadCount > 0 && <h3>Recent Threads</h3>}
+            {data.threadCount > 0 && <h3>Recent Threads Started</h3>}
             {data.threadCount > 0 &&
                 <Table className='recent-threads-table'>
                     <thead>
@@ -73,7 +73,7 @@ export default function UserProfile(props) {
             }
 
             <p>Replies Posted: {data.replyCount}</p>
-            {data.replyCount > 0 && <h3>Recent Replies</h3>}
+            {data.replyCount > 0 && <h3>Recent Replies Posted</h3>}
             {data.replyCount > 0 &&
                 <Table className='recent-replies-table'>
                     <thead>

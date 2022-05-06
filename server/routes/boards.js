@@ -66,14 +66,14 @@ router.post('/create-board', createBoardValidator, (req, res) => {
 router.post('/get-board-and-catalog', (req, res) => {
     let result = {}; // for the frontend
     const MAX_THREADS = 50; // maximum number of threads to get from the database
-    const shortName = req.body.shortName;
+    const {shortName, catalogSortBy} = req.body;
     
     BoardsModel.getBoardData(shortName)
     .then(boardData => {
         if (boardData === -1) throw new Error('No board found in getBoardData().');
         else {
             result.boardData = boardData;
-            return BoardsModel.getCatalogThreads(boardData.id, MAX_THREADS, 'creationDate');
+            return BoardsModel.getCatalogThreads(boardData.id, MAX_THREADS, catalogSortBy);
         }
     })
     .then(catalogResults => {
