@@ -63,7 +63,7 @@ export default function BoardCatalog(props) {
 
     // if a board with the given short name does not exist, show the not found page
     if (boardData === 'error') return <Navigate to='/404' />;
-    else if (!boardData.name) return <div /> // wait for the fetch to finish before rendering
+    else if (!boardData.name) return <div />; // wait for the fetch to finish before rendering
     else return (
         <div className='board-catalog-page'>
             <h2 className='page-title'>/{shortName}/ - {boardData.name}</h2>

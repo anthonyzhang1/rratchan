@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const {registrationValidator} = require('../middleware/validation');
 const UsersModel = require('../models/Users');
+const ThreadsModel = require('../models/Threads');
+const RepliesModel = require('../models/Replies');
+const BookmarksModel = require('../models/Bookmarks');
 const CustomError = require('../helpers/CustomError');
 
 router.post('/search', (req, res) => {
@@ -22,6 +25,71 @@ router.post('/search', (req, res) => {
         if (err instanceof CustomError) result.message = err.message;
         else result.message = 'Server Error: User lookup failed.';
         
+        console.log(err);
+        res.send(result);
+    });
+});
+
+/** Get all the necessary data to render a user's profile. */
+router.post('/get-profile', (req, res) => {
+    let result = {}; // for the frontend
+    const NUM_THREADS = 5; // number of threads to return
+    const NUM_REPLIES = 5; // number of replies to return
+
+    const {userId} = req.body;
+
+    UsersModel.getUsernameWithId(userId)
+    .then(username => {
+        if (username < 0) throw new Error(`No user found with user id ${userId}.`);
+        else {
+            result.username = username;
+            return ThreadsModel.getUserThreadCount(userId);
+        }
+    })
+    .then(threadCount => {
+        if (threadCount < 0) throw new Error('Error with getUserThreadCount().');
+        else {
+            result.threadCount = threadCount;
+            return ThreadsModel.getUserLastNThreads(userId, NUM_THREADS);
+        }
+    })
+    .then(threads => {
+        if (threads < 0) throw new Error('Error with getUserLastNThreads().');
+        else {
+            result.threads = threads;
+            return RepliesModel.getUserReplyCount(userId);
+        }
+    })
+    .then(replyCount => {
+        if (replyCount < 0) throw new Error('Error with getUserReplyCount().');
+        else {
+            result.replyCount = replyCount;
+            return RepliesModel.getUserLastNReplies(userId, NUM_REPLIES);
+        }
+    })
+    .then(replies => {
+        if (replies < 0) throw new Error('Error with getUserLastNReplies().');
+        else {
+            result.replies = replies;
+            return BookmarksModel.getUserBookmarkCount(userId);
+        }
+    })
+    .then(bookmarkCount => {
+        if (bookmarkCount < 0) throw new Error('Error with getUserBookmarkCount().');
+        else {
+            result.bookmarkCount = bookmarkCount;
+            return BookmarksModel.getUserDetailedBookmarks(userId);
+        }
+    })
+    .then(bookmarks => {
+        if (bookmarks < 0) throw new Error('Error with getUserDetailedBookmarks().');
+        else {
+            result.bookmarks = bookmarks;
+            res.send(result);
+        }
+    })
+    .catch(err => {
+        result = {status: 'error'}; // only send error
         console.log(err);
         res.send(result);
     });

@@ -8,6 +8,7 @@ import './css/BoardCatalog.css';
 import './css/CreateBoard.css';
 import './css/FrontPage.css';
 import './css/Thread.css';
+import './css/UserProfile.css';
 
 import NotFound from './pages/NotFound';
 import BecomeAMod from './pages/BecomeAMod';

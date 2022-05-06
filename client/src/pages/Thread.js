@@ -73,16 +73,6 @@ export default function Thread(props) {
         else return 'Post a Reply';
     }
 
-    // function getThreadImageHTML() {
-    //     if (threadImageIsMaximized) {
-    //         return <img src={'/' + threadData.image_path} className='maximized-thread-image'
-    //                 alt='Thread attachment' onClick={() => setThreadImageIsMaximized(!threadImageIsMaximized)} />;
-    //     } else {
-    //         return <img src={'/' + threadData.image_path} className='minimized-thread-image'
-    //                 alt='Thread attachment' onClick={() => setThreadImageIsMaximized(!threadImageIsMaximized)} />;
-    //     }
-    // }
-
     function displayReplies() {
         return replyData.map((reply, index) => {
             return (
@@ -94,8 +84,6 @@ export default function Thread(props) {
             );
         })
     }
-
-    console.log(replyData);
 
     if (threadData === 'error') return <Navigate to='/404' />;
     // wait for the fetch to finish before rendering
@@ -127,9 +115,11 @@ export default function Thread(props) {
                     </Col>
                     <Col className='thread-heading-col'>
                         <p className='thread-heading'>
-                            <strong className='thread-subject'>{threadData.subject}</strong>&nbsp;
-                            <strong className='username'>{threadData.username ?
-                                                          threadData.username : 'Anonymous'}</strong>&nbsp;
+                            <strong className='thread-subject'>{threadData.subject}</strong>
+                            {threadData.subject && '\u00A0'}
+                            <strong className='username'>
+                                {threadData.username ? threadData.username : 'Anonymous'}
+                            </strong>&nbsp;
                             {new Date(threadData.created_at).toLocaleString('en-US', {hourCycle: 'h23'})}&nbsp;
                             TID: {threadId}
                         </p>

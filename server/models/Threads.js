@@ -16,7 +16,40 @@ ThreadsModel.getThreadData = (threadId) => {
     if (results[0]) return results[0];
     else return -1;
   })
-  .catch(err => Promise.return(err));
+  .catch(err => Promise.reject(err));
+}
+
+/** Get the number of threads made by a user with the given user id. On error, return -1. */
+ThreadsModel.getUserThreadCount = (userId) => {
+  const query = `SELECT COUNT(*) AS threadCount
+                 FROM threads T INNER JOIN users U
+                 ON T.user_id = U.id
+                 WHERE U.id = ?;`;
+
+  return db.query(query, [userId])
+  .then(([results]) => {
+    if (results[0]) return results[0].threadCount;
+    else return -1;
+  })
+  .catch(err => Promise.reject(err));
+}
+
+/** Get a user's last `numThreads` threads, given the user's id. On error, return -1. */
+ThreadsModel.getUserLastNThreads = (userId, numThreads) => {
+  const query = `SELECT B.short_name, T.id AS threadId, T.subject, T.body
+                 FROM threads T
+                 INNER JOIN users U ON T.user_id = U.id
+                 INNER JOIN boards B ON B.id = T.board_id
+                 WHERE U.id = ?
+                 ORDER BY T.created_at DESC
+                 LIMIT ?;`;
+
+  return db.query(query, [userId, numThreads])
+  .then(([results]) => {
+    if (results) return results;
+    else return -1;
+  })
+  .catch(err => Promise.reject(err))
 }
 
 /** Creates a thread instance in the database. The arguments should be validated first.

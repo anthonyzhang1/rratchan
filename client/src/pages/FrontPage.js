@@ -1,31 +1,25 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-
-/** Creates a row for a board which can be clicked on to go to the respective board's catalog.
-  * The format of the text in the row is: /short name/ - name. */
-const BoardRow = (props) => (
-    <Link to={`/board/${props.board.short_name}/`} className='clickable'>
-        <strong>/{props.board.short_name}/</strong> - {props.board.name}<br />
-    </Link>
-);
+import FrontPageBoardRow from '../components/FrontPageBoardRow';
 
 export default function FrontPage() {
     const [boards, setBoards] = useState([]);
 
-    /** Get the boards from the database. */
-    function getBoards() {
-        fetch('/api/boards/get-boards')
-        .then(res => res.json())
-        .then(data => { setBoards(data); })
-        .catch(console.log());
-    }
+    useEffect(() => {
+        (/** Get the boards from the database. */
+        function getBoards() {
+            fetch('/api/boards/get-boards')
+            .then(res => res.json())
+            .then(data => { setBoards(data); })
+            .catch(console.log());
+        })();
+    }, []);
 
-    useEffect(() => { getBoards(); }, []);
-
-    /** Displays the boards in the boards table. */
+    /** Displays the boards in the boards list. */
     function displayBoards() {
         return boards.map(board => {
-            return <BoardRow key={board.short_name} board={board} />;
+            return <FrontPageBoardRow key={board.short_name}
+                    shortName={board.short_name} name={board.name} />;
         });
     }
 

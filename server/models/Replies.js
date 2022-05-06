@@ -49,4 +49,38 @@ RepliesModel.getRepliesToThread = (threadId, maxReplies) => {
   .catch(err => Promise.reject(err));
 }
 
+/** Get the number of replies made by a user with the given user id. On error, return -1. */
+RepliesModel.getUserReplyCount = (userId) => {
+  const query = `SELECT COUNT(*) AS replyCount
+                 FROM replies R INNER JOIN users U
+                 ON R.user_id = U.id
+                 WHERE U.id = ?;`;
+
+  return db.query(query, [userId])
+  .then(([results]) => {
+    if (results[0]) return results[0].replyCount;
+    else return -1;
+  })
+  .catch(err => Promise.reject(err));
+}
+
+/** Get a user's last `numReplies` replies, given the user's id. On error, return -1. */
+RepliesModel.getUserLastNReplies = (userId, numReplies) => {
+  const query = `SELECT B.short_name, T.id AS threadId, T.subject, R.id AS replyId, R.reply
+                 FROM replies R
+                 INNER JOIN users U ON R.user_id = U.id
+                 INNER JOIN threads T ON R.thread_id = T.id
+                 INNER JOIN boards B ON T.board_id = B.id
+                 WHERE U.id = ?
+                 ORDER BY R.created_at DESC
+                 LIMIT ?;`;
+
+  return db.query(query, [userId, numReplies])
+  .then(([results]) => {
+    if (results) return results;
+    else return -1;
+  })
+  .catch(err => Promise.reject(err))
+}
+
 module.exports = RepliesModel;

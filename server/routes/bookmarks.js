@@ -20,7 +20,7 @@ router.post('/bookmark-thread', (req, res) => {
         }
     })
     .then(bookmarkExists => {
-        if (bookmarkExists) throw new CustomError('Error: You have already bookmarked this thread.');
+        if (bookmarkExists) throw new CustomError('You have already bookmarked this thread.');
         else return BookmarksModel.createBookmark(userId, threadId);
     })
     .then(userId => {

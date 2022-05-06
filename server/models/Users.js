@@ -11,6 +11,16 @@ UsersModel.getIdWithUsername = (username) => {
     .catch(err => Promise.reject(err));
 }
 
+/** Returns the user's username with the given user id. If no matches, return -1. */
+UsersModel.getUsernameWithId = (userId) => {
+    return db.query('SELECT username FROM users WHERE id=?;', [userId])
+    .then(([results]) => {
+        if (results.length === 1) return results[0].username;
+        else return -1;
+    })
+    .catch(err => Promise.reject(err));
+}
+
 /** Returns true if the username has been taken. */
 UsersModel.usernameExists = (username) => {
     return db.query('SELECT id FROM users WHERE username=?;', [username])

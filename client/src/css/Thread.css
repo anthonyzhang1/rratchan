@@ -32,7 +32,7 @@
 .thread-page .minimized-thread-image:hover, .thread-page .maximized-thread-image:hover {cursor: pointer;}
 .thread-page .minimized-thread-image, .thread-page .maximized-thread-image {
     margin-bottom: 1rem;
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
 } .thread-page .minimized-thread-image {
     max-height: 300px;
     max-width: 400px;
@@ -48,14 +48,12 @@
     margin-bottom: 0.25rem;
 } .thread-page .reply-row * {margin-bottom: 0%;}
 
-
 .thread-page .reply-heading {
     padding-top: 0.05rem;
     padding-left: 0.5rem;
 }
 
 .thread-page .reply-filename {
-    margin-top: 0%;
     margin-bottom: 0.25%;
     padding-left: 0.5rem;
 }

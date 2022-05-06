@@ -81,7 +81,7 @@ router.post('/get-thread', (req, res) => {
         }
     })
     .catch(err => {
-        result.status = 'error';
+        result = {status: 'error'}; // only send error
         console.log(err);
         res.send(result);
     });
