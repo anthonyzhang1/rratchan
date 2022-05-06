@@ -1,11 +1,10 @@
--- This file contains rratchan's MySQL DDL.
---
--- You can just copy and paste this entire file into MySQL Workbench to
--- create the database and tables.
+-- This file contains the MySQL DDL for setting up the database.
+-- You can just copy and paste this entire file into MySQL Workbench to set everything up.
 
 CREATE DATABASE rratchan;
 USE rratchan;
 
+---------------------- Tables ----------------------
 CREATE TABLE users (
     id         int NOT NULL UNIQUE AUTO_INCREMENT,
     username   varchar(64) NOT NULL UNIQUE,
@@ -77,3 +76,64 @@ CREATE TABLE bookmarks (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+---------------------- Indexes ----------------------
+-- -- Duplicate Index
+-- CREATE UNIQUE INDEX IdxUserId
+-- ON users (id)
+-- USING BTREE;
+
+-- -- Duplicate Index
+-- CREATE UNIQUE INDEX IdxUsername
+-- ON users (username)
+-- USING BTREE;
+
+-- -- Duplicate Index
+-- CREATE UNIQUE INDEX IdxBoardId
+-- ON boards (id)
+-- USING BTREE;
+
+-- -- Duplicate Index
+-- CREATE UNIQUE INDEX IdxShortName
+-- ON boards (short_name)
+-- USING BTREE;
+
+-- -- Duplicate Index
+-- CREATE UNIQUE INDEX IdxBoardName
+-- ON boards (name)
+-- USING BTREE;
+
+-- -- Duplicate Index
+-- CREATE UNIQUE INDEX IdxThreadId
+-- ON threads (id)
+-- USING BTREE;
+
+CREATE INDEX IdxFkBoardId
+ON threads (board_id)
+USING BTREE;
+
+CREATE INDEX IdxFkUserId
+ON threads (user_id)
+USING BTREE;
+
+CREATE INDEX IdxFkThreadId
+ON replies (thread_id)
+USING BTREE;
+
+CREATE INDEX IdxFkUserId
+ON replies (user_id)
+USING BTREE;
+
+-- -- Duplicate Index
+-- CREATE UNIQUE INDEX IdxFkUserThreadId
+-- ON bookmarks (user_id, thread_id)
+-- USING BTREE;
+
+---------------------- Views ----------------------
+-- Gets the date of the most recent reply to a thread.
+-- last_reply_date is null if a thread has no replies.
+CREATE VIEW latest_reply_dates AS
+SELECT T.id AS thread_id, MAX(R.created_at) AS last_reply_date
+FROM threads T LEFT OUTER JOIN replies R
+ON T.id = R.thread_id
+GROUP BY T.id;

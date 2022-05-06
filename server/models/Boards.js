@@ -17,8 +17,7 @@ BoardsModel.nameExists = (name) => {
 
 /** Get boards sorted in alphabetical order by short name. */
 BoardsModel.getBoards = () => {
-    const query = `SELECT short_name, name
-                   FROM boards
+    const query = `SELECT short_name, name FROM boards
                    ORDER BY short_name ASC;`;
 
     return db.query(query)
@@ -54,13 +53,12 @@ BoardsModel.getCatalogThreads = (board_id, maxThreads, sortBy) => {
         console.log('getCatalogThreads() Error: maxThreads < 0.');
         return -1;
     } else if (sortBy === 'lastReply') {
-        query = `SELECT T.id, T.subject, T.body, T.thumbnail_path, (
-                    SELECT MAX(R.created_at) FROM replies R
-                    WHERE R.thread_id = T.id
-                 ) AS last_reply_date
-                 FROM threads T WHERE board_id = ?
-                 ORDER BY COALESCE(last_reply_date, T.created_at) DESC
-                 LIMIT ?;`;
+        query = `SELECT T.id, T.subject, T.body, T.thumbnail_path
+                 FROM threads T INNER JOIN latest_reply_dates LRD
+                 ON T.id = LRD.thread_id
+                 WHERE T.board_id = ?
+                 ORDER BY COALESCE(LRD.last_reply_date, T.created_at) DESC
+                 LIMIT ?`;
     } else if (sortBy === 'creationDate') {
         query = `SELECT id, subject, body, thumbnail_path
                  FROM threads WHERE board_id = ?
