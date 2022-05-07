@@ -19,14 +19,14 @@ BookmarksModel.getUserBookmarkCount = (userId) => {
 /** Get a user's bookmarks and the content of the bookmarked threads, given the user's id.
   * On error, return -1. */
 BookmarksModel.getUserDetailedBookmarks = (userId) => {
-    const query = `SELECT Brd.short_name, T.id AS threadId, T.subject,
-                          T.body, Bmk.created_at AS dateBookmarked
+    const query = `SELECT BRD.short_name, T.id AS threadId, T.subject,
+                          T.body, BKMK.created_at AS dateBookmarked
                    FROM users U
-                   INNER JOIN bookmarks Bmk ON U.id = Bmk.user_id
-                   INNER JOIN threads T ON Bmk.thread_id = T.id
-                   INNER JOIN boards Brd ON T.board_id = Brd.id
+                   INNER JOIN bookmarks BKMK ON U.id = BKMK.user_id
+                   INNER JOIN threads T ON BKMK.thread_id = T.id
+                   INNER JOIN boards BRD ON T.board_id = BRD.id
                    WHERE U.id = ?
-                   ORDER BY Bmk.created_at DESC;`;
+                   ORDER BY BKMK.created_at DESC;`;
   
     return db.query(query, [userId])
     .then(([results]) => {

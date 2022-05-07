@@ -25,7 +25,7 @@ BoardsModel.getBoards = () => {
     .catch(err => Promise.reject(err));
 }
 
-/** Returns a board's id, name, and description given its short name.
+/** Returns a board's id, name, description, and its creator's username given its short name.
   * If a matching board was not found, return -1. */
 BoardsModel.getBoardData = (short_name) => {
     const query = `SELECT B.id, B.name, B.description, U.username
