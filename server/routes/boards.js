@@ -65,7 +65,7 @@ router.post('/create-board', createBoardValidator, (req, res) => {
 
 router.post('/get-board-and-catalog', (req, res) => {
     let result = {}; // for the frontend
-    const MAX_THREADS = 50; // maximum number of threads to get from the database
+    const MAX_THREADS = 100; // maximum number of threads to get from the database
     const {shortName, catalogSortBy} = req.body;
     
     BoardsModel.getBoardData(shortName)

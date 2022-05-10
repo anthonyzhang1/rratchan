@@ -78,36 +78,6 @@ CREATE TABLE bookmarks (
 );
 
 ---------------------- Indexes ----------------------
--- -- Duplicate Index
--- CREATE UNIQUE INDEX IdxUserId
--- ON users (id)
--- USING BTREE;
-
--- -- Duplicate Index
--- CREATE UNIQUE INDEX IdxUsername
--- ON users (username)
--- USING BTREE;
-
--- -- Duplicate Index
--- CREATE UNIQUE INDEX IdxBoardId
--- ON boards (id)
--- USING BTREE;
-
--- -- Duplicate Index
--- CREATE UNIQUE INDEX IdxShortName
--- ON boards (short_name)
--- USING BTREE;
-
--- -- Duplicate Index
--- CREATE UNIQUE INDEX IdxBoardName
--- ON boards (name)
--- USING BTREE;
-
--- -- Duplicate Index
--- CREATE UNIQUE INDEX IdxThreadId
--- ON threads (id)
--- USING BTREE;
-
 CREATE INDEX IdxFkBoardId
 ON threads (board_id)
 USING BTREE;
@@ -123,11 +93,6 @@ USING BTREE;
 CREATE INDEX IdxFkUserId
 ON replies (user_id)
 USING BTREE;
-
--- -- Duplicate Index
--- CREATE UNIQUE INDEX IdxFkUserThreadId
--- ON bookmarks (user_id, thread_id)
--- USING BTREE;
 
 ---------------------- Views ----------------------
 -- Gets the date of the most recent reply to a thread.
