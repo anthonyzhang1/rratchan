@@ -4,7 +4,12 @@
 .board-catalog-page .board-data-divider {
     width: 95%;
     margin-left: 2.5%;
-    margin-bottom: 0.5%;
+    margin-bottom: 0;
+}
+
+.board-catalog-page .start-thread-h4 {
+    margin-top: 0.25%;
+    margin-bottom: 0.6%;
 }
 
 .board-catalog-page form {
@@ -16,18 +21,40 @@
 } .board-catalog-page #start-thread-form-subject, .board-catalog-page #start-thread-form-body {
     margin-left: 12.5%;
     width: 75%;
-} .board-catalog-page .start-thread-form-component {width: 98%; margin-left: 1%;}
-.board-catalog-page .btn {margin-bottom: 1%;}
+} .board-catalog-page .start-thread-form-component {
+    width: 98%;
+    margin-left: 1%;
+} .board-catalog-page .btn {margin-bottom: 1%;}
 
 .board-catalog-page .start-thread-divider {
-    width: 95%;
-    margin-left: 2.5%;
+    width: 99%;
+    margin: 0 0 0.4rem 0.5rem;
+}
+
+.board-catalog-page .catalog-sort-by {
+    float: right;
+    text-align: right;
+    margin-bottom: 0.4rem;
+    margin-right: 0.5rem;
+    width: 15%;
+}
+
+.board-catalog-page select, .board-catalog-page select * {
+    background-color: white;
+    text-align: left;
+} .board-catalog-page select {width: 50%;}
+
+.board-catalog-page .sort-by-divider {
+    width: 99%;
+    margin-left: 0.5%;
+    margin-bottom: 0;
 }
 
 .board-catalog-page .catalog-row {
-    width: 95%;
-    padding-top: 1%;
-    margin-left: 2.5%;
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 4rem;
+    padding-left: 1%;
 } .board-catalog-page .catalog-col {
     max-height: 350px;
     max-width: 200px;

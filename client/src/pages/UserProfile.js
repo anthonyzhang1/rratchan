@@ -56,10 +56,10 @@ export default function UserProfile(props) {
         <div className='user-profile-page'>
             <h1 className='page-title'>{data.username}'s Profile</h1>
             <hr className='username-divider' />
-            <p>Threads Started: {data.threadCount}</p>
+            <p className='thread-count'>Threads Started: {data.threadCount}</p>
             {data.threadCount > 0 && <h3>Recent Threads Started</h3>}
             {data.threadCount > 0 &&
-                <Table className='recent-threads-table'>
+                <Table size='sm' className='recent-threads-table'>
                     <thead>
                         <tr>
                             <th>Board</th>
@@ -72,10 +72,10 @@ export default function UserProfile(props) {
                 </Table>
             }
 
-            <p>Replies Posted: {data.replyCount}</p>
+            <p className='reply-count'>Replies Posted: {data.replyCount}</p>
             {data.replyCount > 0 && <h3>Recent Replies Posted</h3>}
             {data.replyCount > 0 &&
-                <Table className='recent-replies-table'>
+                <Table size='sm' className='recent-replies-table'>
                     <thead>
                         <tr>
                             <th>Board</th>
@@ -89,10 +89,10 @@ export default function UserProfile(props) {
                 </Table>    
             }
 
-            <p>Threads Bookmarked: {data.bookmarkCount}</p>
+            <p className='bookmark-count'>Threads Bookmarked: {data.bookmarkCount}</p>
             {data.bookmarkCount > 0 && <h3>Bookmarks</h3>}
             {data.bookmarkCount > 0 &&
-                <Table className='bookmarks-table'>
+                <Table size='sm' className='bookmarks-table'>
                     <thead>
                         <tr>
                             <th>Board</th>

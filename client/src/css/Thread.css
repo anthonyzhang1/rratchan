@@ -7,7 +7,7 @@
 } .thread-page .thread-nav-right {
     float: right;
     padding-right: 0.5%;
-}
+} .thread-page .bookmark-thread-form-component {width: 25rem;}
 
 .thread-page .board-data-divider {margin-top: 0.25%;}
 .thread-page .board-data-divider, .thread-page .last-reply-divider {
@@ -36,39 +36,45 @@
 } .thread-page .minimized-thread-image {
     max-height: 300px;
     max-width: 400px;
+} .thread-page .maximized-thread-image {
+    max-height: 100%;
+    max-width: 99%;
 }
 
 .thread-page .thread-heading {margin-bottom: 0.5rem;}
 .thread-page .thread-subject {color: #0f0c5d;}
+.thread-page .thread-body {white-space: pre-line;}
 .thread-page .username {color: #117743;}
 
 .thread-page .reply-row, .thread-page .reply-row * {background-color: #d6daf0;}
 .thread-page .reply-row {
-    width: 65%;
     margin-left: 0%;
     margin-bottom: 0.25rem;
 } .thread-page .reply-row * {margin-bottom: 0%;}
-
 .thread-page .reply-heading {
-    padding-top: 0.05rem;
+    padding-top: 0.25rem;
     padding-left: 0.5rem;
-}
-
-.thread-page .reply-filename {
+} .thread-page .reply-filename {
     margin-bottom: 0.25%;
     padding-left: 0.5rem;
 }
 
 .thread-page .minimized-reply-image:hover, .thread-page .maximized-reply-image:hover {cursor: pointer;}
 .thread-page .minimized-reply-image, .thread-page .maximized-reply-image {
-    margin-left: 1rem;
-    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-bottom: 0.5rem;
 } .thread-page .minimized-reply-image {
     max-height: 125px;
     max-width: 125px;
+} .thread-page .maximized-reply-image {
+    max-height: 100%;
+    max-width: 99%;
 }
 
-.thread-page .reply-body {padding: 0.4rem 1rem 0.5rem 1rem;}
+.thread-page .reply-body {
+    white-space: pre-line;
+    padding: 0.4rem 1rem 0.75rem 1rem;
+}
 
 .thread-page .clickable-brackets {margin-bottom: 0.5%;}
 

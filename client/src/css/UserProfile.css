@@ -1,4 +1,11 @@
 .user-profile-page .username-divider {
-    width: 75%;
+    width: 90%;
     margin: 0.5% auto 0.5% auto;
 }
+
+.user-profile-page table {
+    width: 98%;
+    margin-left: 1%;
+}
+
+.user-profile-page .reply-count, .user-profile-page .bookmark-count {margin-top: 3rem;}

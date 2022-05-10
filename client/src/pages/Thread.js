@@ -85,6 +85,15 @@ export default function Thread(props) {
         })
     }
 
+    /** Scrolls to the bottom of the page. */
+    function scrollToBottom() {
+        window.scroll({
+            top: document.body.offsetHeight,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
     if (threadData === 'error') return <Navigate to='/404' />;
     // wait for the fetch to finish before rendering
     else if (!threadData.short_name || !replyImageIsMaximized) return <div />;
@@ -93,6 +102,7 @@ export default function Thread(props) {
             <h2 className='page-title'>/{threadData.short_name}/ - {threadData.board_name}</h2>
             <div className='thread-nav'>
                 [<Link to={`/board/${threadData.short_name}`} className='clickable'>Catalog</Link>]
+                [<Link to='#' className='clickable' onClick={scrollToBottom}>Bottom</Link>]
                 <div className='thread-nav-right'>
                     [<Link to='#' className='clickable thread-bookmark' onClick={toggleBookmarkThreadForm}>
                         {getBookmarkThreadToggleText()}
@@ -107,7 +117,7 @@ export default function Thread(props) {
             <hr className='board-data-divider' />
             <Container className='thread-content'>
                 <Row>
-                    <p className='thread-image-filename'>Filename: {threadData.orig_filename}</p>
+                    <p className='thread-image-filename'>File: {threadData.orig_filename}</p>
                     <Col md='auto'>
                         <img src={'/' + threadData.image_path} alt='Thread attachment'
                          className={threadImageIsMaximized ? 'maximized-thread-image' : 'minimized-thread-image'}
