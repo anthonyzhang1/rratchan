@@ -10,8 +10,8 @@ You will need MySQL and NodeJS to run rratchan's servers. Other SQL databases mi
 You only need to complete the installation process once.
 
 ### Step 1: Enter your database credentials into the `config.env` file in the `server` directory. ###
-Enter your database username in the `DB_USER` field and your database password in the `DB_PASSWORD` field.\
-Example: `DB_USERNAME=admin`, `DB_PASSWORD=password`.
+Enter your database username in the `DB_USER` field and your database password in the `DB_PASSWORD` field, replacing `root`.\
+Example: `DB_USER=admin`, `DB_PASSWORD=password`.
 
 You probably should not change anything else in `config.env`.
 
