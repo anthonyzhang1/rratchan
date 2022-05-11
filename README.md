@@ -2,7 +2,7 @@
 rratchan is an imageboard similar to 4channel, but only in terms of layout and colour.\
 rratchan uses MySQL, Express, and React. MySQL is the database, Express is the backend, and React is the frontend.
 
-You will need MySQL to run rratchan's servers. Other SQL databases might work, but they have not been tested.
+You will need MySQL and NodeJS to run rratchan's servers. Other SQL databases might work, but they have not been tested.
 
 #### Note: rratchan should only be locally hosted because it was not designed entirely with security in mind. This is more a project for learning. ####
 
