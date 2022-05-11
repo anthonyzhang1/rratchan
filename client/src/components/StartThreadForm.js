@@ -2,6 +2,7 @@ import {useEffect, useState, useRef} from 'react';
 import {Button, Col, Form, Row} from 'react-bootstrap';
 
 export default function StartThreadForm(props) {
+    const {boardId, passStartThreadSuccessMessage} = props;
     const fileInput = useRef();
 
     const [form, setForm] = useState({
@@ -9,7 +10,7 @@ export default function StartThreadForm(props) {
         password: '',
         subject: '',
         body: '',
-        boardId: props.boardId
+        boardId: boardId
     });
     const [threadImage, setThreadImage] = useState(null);
     const [result, setResult] = useState(null);
@@ -42,12 +43,12 @@ export default function StartThreadForm(props) {
     useEffect(() => {
         // Reset the form after successful submission
         if (result?.status === 'success') {
-            setForm({username: '', password: '', subject: '', body: '', boardId: props.boardId});
+            setForm({username: '', password: '', subject: '', body: '', boardId: boardId});
             setThreadImage(null);
             fileInput.current.value = '';
-            props.passStartThreadSuccessMessage(<h3>{result.message}</h3>);
+            passStartThreadSuccessMessage(<h3>{result.message}</h3>);
         }
-    }, [result, props.boardId]);
+    }, [result, boardId, passStartThreadSuccessMessage]);
 
     return (
         <div className='start-thread-form-component'>
