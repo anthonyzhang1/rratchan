@@ -116,7 +116,7 @@ export default function Thread(props) {
             </div>
             <hr className='board-data-divider' />
             <Container className='thread-content'>
-                <Row>
+                <Row className='thread-row'>
                     <p className='thread-image-filename'>File: {threadData.orig_filename}</p>
                     <Col md='auto'>
                         <img src={'/' + threadData.image_path} alt='Thread attachment'

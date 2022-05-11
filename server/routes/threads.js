@@ -4,9 +4,9 @@ const sharp = require('sharp');
 const fs = require('fs');
 const fileUploader = require('../middleware/fileUploader');
 const {startThreadValidator} = require('../middleware/validation');
+const RepliesModel = require('../models/Replies');
 const ThreadsModel = require('../models/Threads');
 const UsersModel = require('../models/Users');
-const RepliesModel = require('../models/Replies');
 const CustomError = require('../helpers/CustomError');
 
 /** Creates a thread. */

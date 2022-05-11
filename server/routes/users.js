@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const {registrationValidator} = require('../middleware/validation');
-const UsersModel = require('../models/Users');
-const ThreadsModel = require('../models/Threads');
-const RepliesModel = require('../models/Replies');
 const BookmarksModel = require('../models/Bookmarks');
+const RepliesModel = require('../models/Replies');
+const ThreadsModel = require('../models/Threads');
+const UsersModel = require('../models/Users');
 const CustomError = require('../helpers/CustomError');
 
 router.post('/search', (req, res) => {

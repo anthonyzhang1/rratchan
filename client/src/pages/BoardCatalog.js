@@ -5,7 +5,7 @@ import BoardCatalogCard from '../components/BoardCatalogCard';
 import StartThreadForm from '../components/StartThreadForm';
 
 export default function BoardCatalog(props) {
-    const shortName = props.shortName;
+    const {shortName} = props;
 
     // determines the order of the catalog's threads
     const [catalogSortBy, setCatalogSortBy] = useState('lastReply');
@@ -68,7 +68,7 @@ export default function BoardCatalog(props) {
         <div className='board-catalog-page'>
             <h2 className='page-title'>/{shortName}/ - {boardData.name}</h2>
             <h6 className='board-creator'>
-                Board Creator: {boardData.username ? boardData.username : 'Server Owner'}
+                Board Creator: {boardData.username ? boardData.username : 'Server Admin'}
             </h6>
             <p className='page-description'>{boardData.description}</p>
             <hr className='board-data-divider' />
@@ -82,15 +82,19 @@ export default function BoardCatalog(props) {
             }
             {startThreadSuccessMessage}
             <hr className='start-thread-divider' />
-
-            <label className='catalog-sort-by'>Sort By:&nbsp;
-                <select value={catalogSortBy} onChange={e => setCatalogSortBy(e.target.value)}>
-                    <option value='lastReply'>Last Reply</option>
-                    <option value='creationDate'>Creation Date</option>
-                </select>
-            </label>
-            <hr className='sort-by-divider' />
-
+            
+            {catalogData.length > 0 &&
+                <div className='board-options'>
+                    <label className='catalog-sort-by'>Sort By:&nbsp;
+                        <select value={catalogSortBy} onChange={e => setCatalogSortBy(e.target.value)}>
+                            <option value='lastReply'>Last Reply</option>
+                            <option value='creationDate'>Creation Date</option>
+                        </select>
+                    </label>
+                    <hr className='sort-by-divider' />
+                </div>
+            }
+            
             <Row sm={6} className='g-4 catalog-row'>{displayCatalog()}</Row>
         </div>
     );

@@ -18,8 +18,7 @@ export default function FrontPage() {
     /** Displays the boards in the boards list. */
     function displayBoards() {
         return boards.map(board => {
-            return <FrontPageBoardRow key={board.short_name}
-                    shortName={board.short_name} name={board.name} />;
+            return <FrontPageBoardRow key={board.short_name} shortName={board.short_name} name={board.name} />;
         });
     }
 
@@ -29,6 +28,7 @@ export default function FrontPage() {
             <h4>[<Link to='/become-a-mod' className='clickable'>Apply to Become a Mod</Link>]</h4>
             <h4>[<Link to='/create-board' className='clickable'>Create a New Board</Link>] (mods only)</h4>
             <hr />
+            
             <h3>Boards</h3>
             <div className='boards-list'>{displayBoards()}</div>
         </div>

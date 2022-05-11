@@ -44,10 +44,10 @@ export default function CreateBoard() {
         <div className='create-board-page'>
             <h1 className='page-title'>Create a New Board</h1>
             <p className='page-description'>
-            Only moderators may create boards, so you must enter the credentials
-            to your moderator account in addition to filling out the rest of the fields.
-            <br />
-            An asterisk (*) indicates a required field.
+                Only moderators may create boards, so you must enter the credentials
+                to your moderator account in addition to filling out the rest of the fields.
+                <br />
+                An asterisk (*) indicates a required field.
             </p>
 
             <h3>{result?.message}</h3>

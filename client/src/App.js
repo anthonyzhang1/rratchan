@@ -2,13 +2,9 @@ import React from 'react';
 import {Route, Routes, useParams} from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css'; // bootstrap CSS
-import './css/App.css'; // shared CSS
-import './css/BecomeAMod.css';
+import './css/App.css'; // shared CSS as well as CSS for various pages
 import './css/BoardCatalog.css';
-import './css/CreateBoard.css';
-import './css/FrontPage.css';
 import './css/Thread.css';
-import './css/UserProfile.css';
 
 import NotFound from './pages/NotFound';
 import BecomeAMod from './pages/BecomeAMod';

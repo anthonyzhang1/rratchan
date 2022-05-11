@@ -41,6 +41,19 @@
 .navbar-component .nav-link:hover {color: #dd0000;}
 /* ============ Navbar END ============== */
 
+/* ============ Front Page START ============== */
+.front-page hr {
+    width: 50%;
+    margin: 1% auto 0.5% auto;
+}
+
+.front-page .boards-list {
+    text-align: left;
+    width: 40%;
+    margin-left: 30%;
+}
+/* ============ Front Page END ============== */
+
 /* ========== Registration Page START ========== */
 .registration-page form {
     margin-left: 25%;
@@ -50,3 +63,43 @@
     width: 60%;
 }
 /* ========== Registration Page END ============ */
+
+/* ========== Become a Mod Page START ========== */
+.become-a-mod-page p {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.become-a-mod-page .form-control {
+    margin-left: 37.5%;
+    width: 25%;
+}
+/* ========== Become a Mod Page END ============ */
+
+/* ========== Create Board Page START ========== */
+.create-board-page form {
+    margin-left: 25%;
+    margin-right: 25%;
+} .create-board-page .form-control {
+    margin-left: 25%;
+    width: 50%;
+} .create-board-page #create-board-form-password {margin-bottom: 2.5%;}
+.create-board-page #create-board-form-description {
+    margin-left: 10%;
+    width: 80%;
+}
+/* ========== Create Board Page END ============ */
+
+/* ========== User Profile Page START ========== */
+.user-profile-page .username-divider {
+    width: 90%;
+    margin: 0.5% auto 0.5% auto;
+}
+
+.user-profile-page table {
+    width: 98%;
+    margin-left: 1%;
+}
+
+.user-profile-page .reply-count, .user-profile-page .bookmark-count {margin-top: 3rem;}
+/* ========== User Profile Page END ============ */
