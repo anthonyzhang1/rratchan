@@ -20,7 +20,7 @@ export default function Thread(props) {
 
     useEffect(() => {
         (/** Get the board data, thread data, and replies from the database. */
-        function displayThread() {
+        async function displayThread() {
             fetch('/api/threads/get-thread', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},

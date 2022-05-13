@@ -4,7 +4,7 @@
 
 ---------------------- Boards ----------------------
 INSERT INTO boards (short_name, name, description, user_id)
-VALUES ('a', 'Anime', 'For Japanese anime only. Not western cartoons.', NULL);
+VALUES ('a', 'Anime & Manga', 'For Japanese anime and manga only. Not western cartoons or comics.', NULL);
 INSERT INTO boards (short_name, name, description, user_id)
 VALUES ('g', 'Technology', 'From desktops to tablets to phones, everything related to technology goes here.', NULL);
 INSERT INTO boards (short_name, name, description, user_id)

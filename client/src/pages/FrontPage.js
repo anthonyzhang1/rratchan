@@ -7,7 +7,7 @@ export default function FrontPage() {
 
     useEffect(() => {
         (/** Get the boards from the database. */
-        function getBoards() {
+        async function getBoards() {
             fetch('/api/boards/get-boards')
             .then(res => res.json())
             .then(data => { setBoards(data); })

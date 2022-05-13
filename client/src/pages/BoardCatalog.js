@@ -16,7 +16,7 @@ export default function BoardCatalog(props) {
 
     useEffect(() => {
         (/** Get the board data and recent threads from the database. */
-        function displayCatalog() {
+        async function displayCatalog() {
             fetch('/api/boards/get-board-and-catalog', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},

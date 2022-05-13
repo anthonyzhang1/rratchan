@@ -64,7 +64,7 @@ export default function UserProfile(props) {
                         <tr>
                             <th>Board</th>
                             <th>Thread ID</th>
-                            <th>Thread Subject</th>
+                            <th>Subject</th>
                             <th>Body</th>
                         </tr>
                     </thead>
@@ -80,7 +80,7 @@ export default function UserProfile(props) {
                         <tr>
                             <th>Board</th>
                             <th>Thread ID</th>
-                            <th>Thread Subject</th>
+                            <th>Subject</th>
                             <th>Reply ID</th>
                             <th>Reply</th>
                         </tr>
@@ -97,8 +97,8 @@ export default function UserProfile(props) {
                         <tr>
                             <th>Board</th>
                             <th>Thread ID</th>
-                            <th>Thread Subject</th>
-                            <th>Thread Body</th>
+                            <th>Subject</th>
+                            <th>Body</th>
                             <th>Date Bookmarked</th>
                         </tr>
                     </thead>
