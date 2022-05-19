@@ -1,5 +1,5 @@
-# rratchan
-rratchan is an imageboard similar to 4channel, but with fewer features.\
+# rratchan, a 4chan-esque imageboard
+rratchan is an imageboard similar to 4chan, but with fewer features.\
 You can register for an account, view threads in their respective boards, anonymously start your own threads, bookmark threads,
 anonymously reply to threads, view a user's page, and more.
 
