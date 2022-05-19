@@ -52,7 +52,7 @@ The /a/ board and its catalog, which shows the threads associated with the board
 
 ![/a/ board](https://github.com/anthonyzhang1/rratchan/blob/main/.github/board.png)
 
-A thread in the /jp/ board, which shows the thread's image and its replies:
+A thread in the /jp/ board, which shows the thread and its replies:
 
 ![/jp/ thread](https://github.com/anthonyzhang1/rratchan/blob/main/.github/thread.png)
 
